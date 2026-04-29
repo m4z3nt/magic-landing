@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Magic — личный проводник в мир неизведанного</title>
+<meta name="description" content="Magic — Telegram-бот, который отвечает на вопросы, раскладывает карты и помогает услышать самого себя. Серьёзно. Без ребячества." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="#" class="brand">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span class="brand-name">Magic</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#about">О проекте</a>
+      <a href="#capabilities">Возможности</a>
+      <a href="#ritual">Ритуал</a>
+      <a class="nav-cta" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">Открыть в Telegram</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-inner">
+      <p class="eyebrow">Личный проводник · Telegram</p>
+      <h1 class="hero-title">
+        Магия для тех,<br/>
+        кто умеет слушать.
+      </h1>
+      <p class="hero-sub">
+        Magic — не игра и не развлечение. Это бот, с которым можно говорить честно:
+        задать вопрос, попросить расклад, получить ответ — без шаблонов, без сахара,
+        без лишних слов.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
+          Открыть Magic в Telegram
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn btn-ghost" href="#capabilities">Что он умеет</a>
+      </div>
+      <p class="hero-handle">@magicforeveryone_bot</p>
+    </div>
+    <div class="hero-glow" aria-hidden="true"></div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container two-col">
+      <div>
+        <p class="eyebrow">О проекте</p>
+        <h2>Серьёзный разговор<br/>в формате, который вы знаете.</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Мы не обещаем чудес и не торгуем верой. Magic — это аккуратный инструмент
+          самонаблюдения: символы, архетипы и выверенные тексты, собранные так,
+          чтобы помогать думать, а не уводить от мысли.
+        </p>
+        <p>
+          Всё работает прямо в Telegram. Без приложений, без регистраций,
+          без подписок «по умолчанию». Открываете чат — и начинаете.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="capabilities" class="section section-dark">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Возможности</p>
+        <h2>Четыре практики. Один бот.</h2>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <span class="card-glyph" aria-hidden="true">☉</span>
+          <h3>Вопрос дня</h3>
+          <p>Один точный вопрос каждое утро. Не предсказание — повод остановиться и подумать о главном.</p>
+        </article>
+        <article class="card">
+          <span class="card-glyph" aria-hidden="true">☽</span>
+          <h3>Расклад карт</h3>
+          <p>Классические и авторские расклады с подробной интерпретацией. Без двусмысленностей и общих фраз.</p>
+        </article>
+        <article class="card">
+          <span class="card-glyph" aria-hidden="true">✦</span>
+          <h3>Свободный диалог</h3>
+          <p>Можно просто написать, что на душе. Бот ответит спокойно, по существу и без морали.</p>
+        </article>
+        <article class="card">
+          <span class="card-glyph" aria-hidden="true">⚸</span>
+          <h3>Ритуалы и практики</h3>
+          <p>Короткие техники внимания, дыхания и письма. Проверенные, без эзотерического шума.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="ritual" class="section">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">Как это устроено</p>
+        <h2>Три шага.</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-num">01</span>
+          <h3>Откройте бот</h3>
+          <p>Нажмите кнопку и перейдите в Telegram. Никаких форм, паролей и ожидания.</p>
+        </li>
+        <li>
+          <span class="step-num">02</span>
+          <h3>Задайте вопрос</h3>
+          <p>Сформулируйте то, что важно прямо сейчас. Чем точнее вопрос — тем точнее ответ.</p>
+        </li>
+        <li>
+          <span class="step-num">03</span>
+          <h3>Прочтите ответ</h3>
+          <p>Расклад, текст или короткая практика. Возвращайтесь к нему столько раз, сколько нужно.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <div class="container">
+      <div class="final-card">
+        <p class="eyebrow">Готовы начать?</p>
+        <h2>Один чат. Один вопрос.<br/>Один честный ответ.</h2>
+        <a class="btn btn-primary btn-large" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
+          Открыть Magic в Telegram
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <p class="final-handle">t.me/magicforeveryone_bot</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span>Magic</span>
+    </div>
+    <p class="footer-note">© <span id="year"></span> Magic. Сделано с уважением к тишине.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
