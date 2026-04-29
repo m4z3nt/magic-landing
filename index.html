@@ -7,69 +7,205 @@
 <meta name="description" content="Magic — Telegram-бот, который отвечает на вопросы, раскладывает карты и помогает услышать самого себя. Серьёзно. Без ребячества." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <canvas id="stars" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-glow" aria-hidden="true"></div>
 
 <header class="site-header">
   <div class="container nav">
     <a href="#" class="brand">
-      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18">
+          <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="0.6"/>
+          <path d="M12 2 L14 12 L12 22 L10 12 Z M2 12 L12 10 L22 12 L12 14 Z" fill="currentColor" opacity="0.85"/>
+        </svg>
+      </span>
       <span class="brand-name">Magic</span>
     </a>
     <nav class="nav-links">
       <a href="#about">О проекте</a>
       <a href="#capabilities">Возможности</a>
+      <a href="#draw">Карта</a>
       <a href="#ritual">Ритуал</a>
-      <a class="nav-cta" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">Открыть в Telegram</a>
+      <a class="nav-cta" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
+        <span>В Telegram</span>
+        <span class="nav-cta-arrow">→</span>
+      </a>
     </nav>
   </div>
 </header>
 
 <main>
   <section class="hero">
-    <div class="container hero-inner">
-      <p class="eyebrow">Личный проводник · Telegram</p>
-      <h1 class="hero-title">
-        Магия для тех,<br/>
-        кто умеет слушать.
-      </h1>
-      <p class="hero-sub">
-        Magic — не игра и не развлечение. Это бот, с которым можно говорить честно:
-        задать вопрос, попросить расклад, получить ответ — без шаблонов, без сахара,
-        без лишних слов.
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
-          Открыть Magic в Telegram
-          <span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="btn btn-ghost" href="#capabilities">Что он умеет</a>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <p class="eyebrow"><span class="eyebrow-line"></span>Личный проводник · Telegram</p>
+        <h1 class="hero-title">
+          <span class="line">Магия</span>
+          <span class="line"><em>для тех,</em></span>
+          <span class="line">кто умеет</span>
+          <span class="line gold"><em>слушать.</em></span>
+        </h1>
+        <p class="hero-sub">
+          Не игра и не развлечение. Бот, с которым можно говорить честно:
+          задать вопрос, попросить расклад, получить ответ — без шаблонов,
+          без сахара, без лишних слов.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
+            <span>Открыть в Telegram</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn-ghost" href="#draw">
+            <span>Вытянуть карту</span>
+          </a>
+        </div>
+        <div class="hero-meta">
+          <span class="meta-dot"></span>
+          <span>@magicforeveryone_bot</span>
+        </div>
       </div>
-      <p class="hero-handle">@magicforeveryone_bot</p>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="sigil">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#d8bf85" stop-opacity="0.6"/>
+                <stop offset="60%" stop-color="#c9a96a" stop-opacity="0.05"/>
+                <stop offset="100%" stop-color="#c9a96a" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <circle cx="200" cy="200" r="180" fill="url(#centerGlow)"/>
+
+            <!-- Outer rotating ring with text-like ticks -->
+            <g class="ring ring-outer">
+              <circle cx="200" cy="200" r="180" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.4"/>
+              <circle cx="200" cy="200" r="172" fill="none" stroke="#c9a96a" stroke-width="0.3" stroke-opacity="0.25"/>
+              <g stroke="#c9a96a" stroke-width="0.6" stroke-opacity="0.6">
+                <!-- 24 ticks -->
+                <line x1="200" y1="20" x2="200" y2="32"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(15 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(30 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(45 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(60 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(75 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(90 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(105 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(120 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(135 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(150 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(165 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(180 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(195 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(210 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(225 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(240 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(255 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(270 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(285 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(300 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(315 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(330 200 200)"/>
+                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(345 200 200)"/>
+              </g>
+              <!-- Glyphs on outer ring -->
+              <g fill="#c9a96a" fill-opacity="0.7" font-family="Cormorant Garamond, serif" font-size="14" text-anchor="middle">
+                <text x="200" y="14">✦</text>
+                <text x="386" y="204" transform="rotate(90 386 200)">☉</text>
+                <text x="200" y="394">✦</text>
+                <text x="14" y="204" transform="rotate(-90 14 200)">☽</text>
+              </g>
+            </g>
+
+            <!-- Middle counter-rotating ring -->
+            <g class="ring ring-middle">
+              <circle cx="200" cy="200" r="140" fill="none" stroke="#c9a96a" stroke-width="0.4" stroke-opacity="0.35"/>
+              <circle cx="200" cy="200" r="135" fill="none" stroke="#c9a96a" stroke-width="0.3" stroke-opacity="0.2" stroke-dasharray="2 4"/>
+            </g>
+
+            <!-- Hexagram (two triangles) -->
+            <g class="hex" stroke="#c9a96a" stroke-width="0.7" fill="none" stroke-opacity="0.55">
+              <polygon points="200,90 295,250 105,250"/>
+              <polygon points="200,310 105,150 295,150"/>
+            </g>
+
+            <!-- Inner ring -->
+            <g class="ring ring-inner">
+              <circle cx="200" cy="200" r="80" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.5"/>
+              <circle cx="200" cy="200" r="72" fill="none" stroke="#c9a96a" stroke-width="0.3" stroke-opacity="0.3"/>
+            </g>
+
+            <!-- Center sigil -->
+            <g class="core">
+              <circle cx="200" cy="200" r="6" fill="#d8bf85"/>
+              <circle cx="200" cy="200" r="14" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.7"/>
+              <circle cx="200" cy="200" r="22" fill="none" stroke="#c9a96a" stroke-width="0.3" stroke-opacity="0.4"/>
+            </g>
+
+            <!-- Cross lines -->
+            <g stroke="#c9a96a" stroke-width="0.4" stroke-opacity="0.25">
+              <line x1="200" y1="20" x2="200" y2="380"/>
+              <line x1="20" y1="200" x2="380" y2="200"/>
+            </g>
+          </svg>
+        </div>
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+      </div>
     </div>
-    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <span class="scroll-line"></span>
+    </div>
   </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Тишина · Внимание · Намерение</span>
+      <span class="dot">✦</span>
+      <span>Слушать · Спрашивать · Понимать</span>
+      <span class="dot">✦</span>
+      <span>Луна · Солнце · Земля · Воздух · Вода · Огонь</span>
+      <span class="dot">✦</span>
+      <span>Тишина · Внимание · Намерение</span>
+      <span class="dot">✦</span>
+      <span>Слушать · Спрашивать · Понимать</span>
+      <span class="dot">✦</span>
+      <span>Луна · Солнце · Земля · Воздух · Вода · Огонь</span>
+      <span class="dot">✦</span>
+    </div>
+  </div>
 
   <section id="about" class="section">
     <div class="container two-col">
-      <div>
-        <p class="eyebrow">О проекте</p>
-        <h2>Серьёзный разговор<br/>в формате, который вы знаете.</h2>
+      <div class="col-sticky">
+        <p class="eyebrow"><span class="eyebrow-line"></span>О проекте</p>
+        <h2>Серьёзный<br/>разговор<br/><em>в формате,</em><br/>который<br/>вы знаете.</h2>
       </div>
       <div class="prose">
+        <p class="lead">
+          Мы не обещаем чудес и не торгуем верой.
+        </p>
         <p>
-          Мы не обещаем чудес и не торгуем верой. Magic — это аккуратный инструмент
-          самонаблюдения: символы, архетипы и выверенные тексты, собранные так,
-          чтобы помогать думать, а не уводить от мысли.
+          Magic — аккуратный инструмент самонаблюдения: символы, архетипы и выверенные тексты,
+          собранные так, чтобы помогать думать, а не уводить от мысли.
         </p>
         <p>
           Всё работает прямо в Telegram. Без приложений, без регистраций,
           без подписок «по умолчанию». Открываете чат — и начинаете.
         </p>
+        <div class="quote">
+          <span class="quote-mark">“</span>
+          <p>Магия — это внимание, доведённое до того предела, где оно становится ответом.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -77,48 +213,117 @@
   <section id="capabilities" class="section section-dark">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Возможности</p>
-        <h2>Четыре практики. Один бот.</h2>
+        <p class="eyebrow"><span class="eyebrow-line"></span>Возможности</p>
+        <h2>Четыре практики.<br/><em>Один бот.</em></h2>
       </div>
       <div class="grid">
-        <article class="card">
+        <article class="card" data-num="01">
           <span class="card-glyph" aria-hidden="true">☉</span>
           <h3>Вопрос дня</h3>
           <p>Один точный вопрос каждое утро. Не предсказание — повод остановиться и подумать о главном.</p>
+          <span class="card-corner" aria-hidden="true"></span>
         </article>
-        <article class="card">
+        <article class="card" data-num="02">
           <span class="card-glyph" aria-hidden="true">☽</span>
           <h3>Расклад карт</h3>
           <p>Классические и авторские расклады с подробной интерпретацией. Без двусмысленностей и общих фраз.</p>
+          <span class="card-corner" aria-hidden="true"></span>
         </article>
-        <article class="card">
+        <article class="card" data-num="03">
           <span class="card-glyph" aria-hidden="true">✦</span>
           <h3>Свободный диалог</h3>
           <p>Можно просто написать, что на душе. Бот ответит спокойно, по существу и без морали.</p>
+          <span class="card-corner" aria-hidden="true"></span>
         </article>
-        <article class="card">
+        <article class="card" data-num="04">
           <span class="card-glyph" aria-hidden="true">⚸</span>
           <h3>Ритуалы и практики</h3>
           <p>Короткие техники внимания, дыхания и письма. Проверенные, без эзотерического шума.</p>
+          <span class="card-corner" aria-hidden="true"></span>
         </article>
       </div>
     </div>
   </section>
 
-  <section id="ritual" class="section">
+  <section id="draw" class="section section-draw">
     <div class="container">
       <div class="section-head center">
-        <p class="eyebrow">Как это устроено</p>
-        <h2>Три шага.</h2>
+        <p class="eyebrow"><span class="eyebrow-line"></span>Малая практика</p>
+        <h2>Вытяните карту.</h2>
+        <p class="section-sub">Выберите одну из трёх. Прочтите. Так это работает в боте — только подробнее.</p>
+      </div>
+
+      <div class="cards-deck" id="cardsDeck">
+        <button class="tcard" data-card="0" aria-label="Вытянуть карту 1">
+          <div class="tcard-inner">
+            <div class="tcard-back">
+              <div class="tcard-pattern">
+                <span>✦</span>
+                <span class="tcard-circle"></span>
+              </div>
+            </div>
+            <div class="tcard-front">
+              <span class="tcard-num">I</span>
+              <span class="tcard-glyph">☉</span>
+              <h4 class="tcard-title">Источник</h4>
+              <p class="tcard-text">То, к чему вы привыкли возвращаться, — пришло за вами. Не отворачивайтесь от ясности.</p>
+            </div>
+          </div>
+        </button>
+        <button class="tcard" data-card="1" aria-label="Вытянуть карту 2">
+          <div class="tcard-inner">
+            <div class="tcard-back">
+              <div class="tcard-pattern">
+                <span>✦</span>
+                <span class="tcard-circle"></span>
+              </div>
+            </div>
+            <div class="tcard-front">
+              <span class="tcard-num">II</span>
+              <span class="tcard-glyph">☽</span>
+              <h4 class="tcard-title">Зеркало</h4>
+              <p class="tcard-text">Ответ уже у вас — и вы его узнаёте. Сегодня важнее не искать новое, а услышать то, что есть.</p>
+            </div>
+          </div>
+        </button>
+        <button class="tcard" data-card="2" aria-label="Вытянуть карту 3">
+          <div class="tcard-inner">
+            <div class="tcard-back">
+              <div class="tcard-pattern">
+                <span>✦</span>
+                <span class="tcard-circle"></span>
+              </div>
+            </div>
+            <div class="tcard-front">
+              <span class="tcard-num">III</span>
+              <span class="tcard-glyph">⚸</span>
+              <h4 class="tcard-title">Порог</h4>
+              <p class="tcard-text">Шаг, который вы откладывали, перестал быть выбором. Он стал направлением.</p>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <p class="draw-note" id="drawNote">Нажмите на карту.</p>
+    </div>
+  </section>
+
+  <section id="ritual" class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow"><span class="eyebrow-line"></span>Как это устроено</p>
+        <h2>Три шага.<br/><em>Без лишнего.</em></h2>
       </div>
       <ol class="steps">
         <li>
           <span class="step-num">01</span>
+          <div class="step-line"></div>
           <h3>Откройте бот</h3>
           <p>Нажмите кнопку и перейдите в Telegram. Никаких форм, паролей и ожидания.</p>
         </li>
         <li>
           <span class="step-num">02</span>
+          <div class="step-line"></div>
           <h3>Задайте вопрос</h3>
           <p>Сформулируйте то, что важно прямо сейчас. Чем точнее вопрос — тем точнее ответ.</p>
         </li>
@@ -134,10 +339,19 @@
   <section class="section final-cta">
     <div class="container">
       <div class="final-card">
-        <p class="eyebrow">Готовы начать?</p>
-        <h2>Один чат. Один вопрос.<br/>Один честный ответ.</h2>
+        <div class="final-decoration" aria-hidden="true">
+          <svg viewBox="0 0 200 200" width="120" height="120">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.4"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.3"/>
+            <polygon points="100,40 160,140 40,140" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.5"/>
+            <polygon points="100,160 40,60 160,60" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.5"/>
+            <circle cx="100" cy="100" r="3" fill="#d8bf85"/>
+          </svg>
+        </div>
+        <p class="eyebrow"><span class="eyebrow-line"></span>Готовы начать?</p>
+        <h2>Один чат.<br/>Один вопрос.<br/><em>Один честный ответ.</em></h2>
         <a class="btn btn-primary btn-large" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
-          Открыть Magic в Telegram
+          <span>Открыть Magic в Telegram</span>
           <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
         <p class="final-handle">t.me/magicforeveryone_bot</p>
