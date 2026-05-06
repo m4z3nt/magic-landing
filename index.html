@@ -1,375 +1,1449 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Magic — личный проводник в мир неизведанного</title>
-<meta name="description" content="Magic — Telegram-бот, который отвечает на вопросы, раскладывает карты и помогает услышать самого себя. Серьёзно. Без ребячества." />
+<title>Єфросинья — потомствена відунья · 5 поколінь · бот у Telegram</title>
+<meta name="description" content="Єфросинья. 90 років. 50 років практики. 5 поколінь жінок-провидиць. Тепер дар бабусі — у вашому Telegram." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #05030f;
+  --bg-2: #0a0618;
+  --purple: #a855f7;
+  --purple-deep: #6b21a8;
+  --gold: #d4a017;
+  --gold-light: #f0c040;
+  --lavender: #d8b4fe;
+  --muted: #9d8cc0;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --display: 'Cinzel Decorative', 'Cinzel', serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--lavender);
+  font-family: var(--serif);
+  font-weight: 300;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><circle cx='8' cy='8' r='3' fill='%23a855f7' opacity='0.95'/><circle cx='8' cy='8' r='6' fill='none' stroke='%23a855f7' stroke-opacity='0.4'/></svg>") 8 8, auto;
+  position: relative;
+  min-height: 100vh;
+}
+
+a, button { cursor: inherit; }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(107, 33, 168, 0.35), transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(107, 33, 168, 0.25), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#stars, #particles {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Moon */
+.moon {
+  position: fixed;
+  top: 70px;
+  right: 80px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 32%, #faf3dc 0%, #e8d4b0 25%, #b89cd6 60%, #4a1d7a 95%);
+  box-shadow:
+    inset -14px -14px 24px rgba(40, 15, 80, 0.4),
+    0 0 60px rgba(216, 180, 254, 0.32),
+    0 0 120px rgba(168, 85, 247, 0.22);
+  z-index: 1;
+  pointer-events: none;
+  animation: moon-pulse 5s ease-in-out infinite;
+}
+.moon::before, .moon::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(70, 40, 110, 0.22);
+}
+.moon::before {
+  width: 22px; height: 22px;
+  top: 32%; left: 56%;
+  box-shadow: -34px 12px 0 -4px rgba(70, 40, 110, 0.18), 18px 28px 0 -8px rgba(70, 40, 110, 0.16);
+}
+.moon::after {
+  width: 14px; height: 14px;
+  top: 65%; left: 38%;
+  box-shadow: -22px -18px 0 -3px rgba(70, 40, 110, 0.18);
+}
+
+@keyframes moon-pulse {
+  0%, 100% {
+    box-shadow:
+      inset -14px -14px 24px rgba(40, 15, 80, 0.4),
+      0 0 60px rgba(216, 180, 254, 0.32),
+      0 0 120px rgba(168, 85, 247, 0.22);
+  }
+  50% {
+    box-shadow:
+      inset -14px -14px 24px rgba(40, 15, 80, 0.4),
+      0 0 90px rgba(216, 180, 254, 0.5),
+      0 0 170px rgba(168, 85, 247, 0.36);
+  }
+}
+
+/* Fog layers */
+.fog {
+  position: fixed;
+  bottom: 0;
+  left: -50%;
+  width: 200%;
+  height: 320px;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(24px);
+}
+.fog-1 {
+  background: radial-gradient(ellipse at center bottom, rgba(168, 85, 247, 0.22) 0%, transparent 70%);
+  animation: fog-drift 32s ease-in-out infinite;
+}
+.fog-2 {
+  background: radial-gradient(ellipse at 60% bottom, rgba(216, 180, 254, 0.14) 0%, transparent 70%);
+  height: 220px;
+  opacity: 0.7;
+  animation: fog-drift-r 44s ease-in-out infinite;
+}
+@keyframes fog-drift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(14%); }
+}
+@keyframes fog-drift-r {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-12%); }
+}
+
+/* Layout */
+nav.site-nav, main, footer { position: relative; z-index: 2; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Nav */
+nav.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 18px 0;
+  background: rgba(5, 3, 15, 0.7);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.logo {
+  font-family: var(--display);
+  color: var(--gold);
+  font-size: 17px;
+  letter-spacing: 0.32em;
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a:not(.nav-cta) {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-family: var(--display);
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a:not(.nav-cta):hover { color: var(--lavender); }
+.nav-links a:not(.nav-cta)::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -6px;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.4s ease;
+}
+.nav-links a:not(.nav-cta):hover::after { width: 100%; }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 22px;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--purple-deep) 100%);
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--display);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 2px;
+  box-shadow: 0 0 22px rgba(168, 85, 247, 0.35);
+  transition: all 0.35s;
+}
+.nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(168, 85, 247, 0.55);
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140px 24px 100px;
+  position: relative;
+}
+.badge {
+  display: inline-block;
+  padding: 9px 22px;
+  border: 1px solid rgba(212, 160, 23, 0.4);
+  border-radius: 100px;
+  color: var(--gold-light);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-family: var(--display);
+  font-weight: 400;
+  margin-bottom: 36px;
+  background: rgba(212, 160, 23, 0.05);
+  backdrop-filter: blur(6px);
+}
+.floating-rune {
+  font-size: 72px;
+  margin-bottom: 28px;
+  display: inline-block;
+  animation: float 4.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 28px rgba(168, 85, 247, 0.55));
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-22px) rotate(3deg); }
+}
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(34px, 6vw, 78px);
+  line-height: 1.18;
+  color: var(--lavender);
+  max-width: 1000px;
+  margin: 0 auto 32px;
+  letter-spacing: 0.015em;
+  text-shadow: 0 0 40px rgba(216, 180, 254, 0.2);
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+  font-family: var(--serif);
+  font-weight: 500;
+  text-shadow: 0 0 20px rgba(212, 160, 23, 0.4);
+}
+.hero-sub {
+  font-style: italic;
+  font-size: clamp(17px, 1.6vw, 22px);
+  color: var(--muted);
+  max-width: 660px;
+  margin: 0 auto 48px;
+  line-height: 1.55;
+}
+.cta-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 17px 36px;
+  font-family: var(--display);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  border: 1px solid transparent;
+  font-weight: 700;
+  background: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--purple) 0%, #7c3aed 50%, var(--purple-deep) 100%);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5), 0 22px 60px -10px rgba(168, 85, 247, 0.5);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.7), 0 30px 70px -10px rgba(168, 85, 247, 0.7);
+}
+.btn-ghost {
+  background: rgba(216, 180, 254, 0.03);
+  color: var(--lavender);
+  border-color: rgba(216, 180, 254, 0.3);
+}
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 160, 23, 0.05);
+}
+.btn-arrow { transition: transform 0.3s; display: inline-block; }
+.btn:hover .btn-arrow { transform: translateX(5px); }
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-family: var(--display);
+}
+.scroll-indicator::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(180deg, var(--gold), transparent);
+  margin: 14px auto 0;
+  animation: scroll-pulse 2.2s ease-in-out infinite;
+  transform-origin: top;
+}
+@keyframes scroll-pulse {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Ticker */
+.ticker {
+  background: linear-gradient(90deg, rgba(212,160,23,0.04), rgba(168,85,247,0.10), rgba(212,160,23,0.04));
+  border-top: 1px solid rgba(212, 160, 23, 0.22);
+  border-bottom: 1px solid rgba(212, 160, 23, 0.22);
+  overflow: hidden;
+  padding: 20px 0;
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
+}
+.ticker-track {
+  display: inline-block;
+  animation: ticker 45s linear infinite;
+  font-family: var(--display);
+  color: var(--gold-light);
+  letter-spacing: 0.22em;
+  font-size: 13px;
+}
+.ticker-track span { margin: 0 26px; }
+.ticker-track .sep { color: var(--purple); margin: 0 14px; }
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Queue */
+.queue {
+  padding: 90px 24px;
+  text-align: center;
+}
+.queue-num {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(72px, 11vw, 132px);
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(212, 160, 23, 0.5), 0 0 60px rgba(212, 160, 23, 0.3), 0 0 100px rgba(212, 160, 23, 0.18);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  transition: opacity 0.3s ease;
+  display: block;
+}
+.queue-label {
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 18px;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  letter-spacing: 0.04em;
+}
+.live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 14px #4ade80;
+  animation: blink 1.4s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(0.85); }
+}
+
+/* Sections */
+section { padding: 110px 0; position: relative; }
+.section-eyebrow {
+  font-family: var(--display);
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  font-weight: 400;
+}
+h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(32px, 4.5vw, 58px);
+  color: var(--lavender);
+  letter-spacing: 0.015em;
+  line-height: 1.16;
+  margin-bottom: 18px;
+}
+h2 em {
+  font-style: italic;
+  color: var(--gold);
+  font-family: var(--serif);
+  font-weight: 500;
+}
+.section-head {
+  text-align: center;
+  margin-bottom: 70px;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section-head p {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 19px;
+  margin-top: 12px;
+}
+
+/* Two col */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 70px;
+  align-items: center;
+}
+.two-col.reverse { grid-template-columns: 1.2fr 1fr; }
+
+/* Portrait card */
+.portrait {
+  aspect-ratio: 4/5;
+  background:
+    radial-gradient(ellipse at top, rgba(168,85,247,0.18) 0%, transparent 65%),
+    linear-gradient(180deg, rgba(10, 6, 24, 0.85) 0%, rgba(5, 3, 15, 0.95) 100%);
+  border: 1px solid rgba(212, 160, 23, 0.28);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(168, 85, 247, 0.3);
+}
+.portrait::before {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px dashed rgba(212, 160, 23, 0.2);
+  pointer-events: none;
+}
+.portrait::after {
+  content: '✦ ☽ ✦';
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gold);
+  letter-spacing: 8px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+.portrait-emoji {
+  font-size: 130px;
+  margin-bottom: 28px;
+  filter: grayscale(0.35) drop-shadow(0 0 32px rgba(168, 85, 247, 0.45));
+  opacity: 0.88;
+}
+.portrait-caption {
+  font-family: var(--display);
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.portrait-sub {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+
+/* Story text */
+.story-text p {
+  font-size: 19px;
+  line-height: 1.72;
+  margin-bottom: 22px;
+  color: var(--lavender);
+  font-weight: 300;
+}
+.story-text .lead {
+  font-size: 25px;
+  color: var(--gold-light);
+  font-style: italic;
+  margin-bottom: 30px;
+  line-height: 1.45;
+}
+blockquote {
+  border-left: 2px solid var(--gold);
+  padding: 18px 0 18px 32px;
+  margin: 36px 0;
+  font-style: italic;
+  font-size: 23px;
+  color: var(--lavender);
+  background: linear-gradient(90deg, rgba(212,160,23,0.07), transparent 80%);
+  line-height: 1.4;
+}
+blockquote cite {
+  display: block;
+  margin-top: 12px;
+  font-style: normal;
+  font-family: var(--display);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.gen-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+.gen-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 100px;
+  font-size: 13px;
+  color: var(--lavender);
+  letter-spacing: 0.04em;
+  background: rgba(168, 85, 247, 0.05);
+  font-style: italic;
+}
+
+/* Granddaughter avatar */
+.avatar-wrap {
+  display: flex;
+  justify-content: center;
+}
+.avatar-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 32%, rgba(216,180,254,0.22) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(15, 9, 32, 0.95) 0%, rgba(5,3,15,0.98) 100%);
+  border: 1px solid rgba(216, 180, 254, 0.28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 60px rgba(168, 85, 247, 0.18), inset 0 0 40px rgba(168, 85, 247, 0.08);
+}
+.avatar-circle::before {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px dashed rgba(216, 180, 254, 0.22);
+  animation: spin 70s linear infinite;
+}
+.avatar-circle::after {
+  content: '';
+  position: absolute;
+  inset: -28px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 160, 23, 0.12);
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.avatar-emoji {
+  font-size: 88px;
+  filter: drop-shadow(0 0 24px rgba(216,180,254,0.5));
+  margin-bottom: 16px;
+}
+.avatar-label {
+  font-family: var(--display);
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 24px;
+}
+
+/* Services grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+}
+.service-card {
+  background: linear-gradient(180deg, rgba(168,85,247,0.05), rgba(5,3,15,0.55));
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  padding: 38px 28px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.service-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212, 160, 23, 0.5);
+  box-shadow: 0 36px 70px -22px rgba(168, 85, 247, 0.45);
+}
+.service-card:hover::before { opacity: 1; }
+.service-icon {
+  font-size: 42px;
+  margin-bottom: 22px;
+  display: block;
+  filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.45));
+}
+.service-card h3 {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--lavender);
+  margin-bottom: 18px;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+}
+.service-price {
+  font-family: var(--display);
+  color: var(--gold);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+/* How */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.how-step {
+  text-align: center;
+  padding: 36px 24px;
+  position: relative;
+  border: 1px solid rgba(168, 85, 247, 0.12);
+  background: linear-gradient(180deg, rgba(168,85,247,0.03), transparent);
+  border-radius: 4px;
+}
+.how-num {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 110px;
+  color: rgba(168, 85, 247, 0.18);
+  line-height: 1;
+  margin-bottom: 0;
+  letter-spacing: -0.02em;
+}
+.how-icon {
+  font-size: 46px;
+  margin: -50px 0 22px;
+  display: block;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.5));
+}
+.how-step h3 {
+  font-family: var(--display);
+  font-size: 19px;
+  color: var(--lavender);
+  margin-bottom: 14px;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+}
+.how-step p {
+  color: var(--muted);
+  font-size: 16px;
+  font-style: italic;
+}
+
+/* Reviews */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.review-card {
+  padding: 34px;
+  background: linear-gradient(180deg, rgba(168,85,247,0.05), rgba(5,3,15,0.4));
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  border-radius: 4px;
+  position: relative;
+  transition: border-color 0.4s, transform 0.4s;
+}
+.review-card:hover {
+  border-color: rgba(212, 160, 23, 0.4);
+  transform: translateY(-4px);
+}
+.review-stars {
+  color: var(--gold);
+  letter-spacing: 0.22em;
+  margin-bottom: 18px;
+  font-size: 16px;
+  text-shadow: 0 0 12px rgba(212, 160, 23, 0.4);
+}
+.review-quote {
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--lavender);
+  margin-bottom: 26px;
+}
+.review-author {
+  font-family: var(--display);
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+}
+.review-meta {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 13px;
+  margin-top: 6px;
+  letter-spacing: 0.04em;
+}
+
+/* CTA section */
+.cta-section {
+  text-align: center;
+  padding: 130px 0 110px;
+  position: relative;
+}
+.cta-section h2 { margin-bottom: 24px; }
+.cta-section .hero-sub { margin-bottom: 16px; }
+.trust-stats {
+  display: flex;
+  justify-content: center;
+  gap: 56px;
+  margin: 56px 0 56px;
+  flex-wrap: wrap;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 42px;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(212, 160, 23, 0.4);
+  line-height: 1;
+}
+.stat-label {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  margin-top: 8px;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid rgba(168, 85, 247, 0.15);
+  padding: 38px 0;
+  text-align: center;
+  font-family: var(--display);
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+footer a {
+  color: var(--gold);
+  text-decoration: none;
+  margin-left: 12px;
+  transition: color 0.3s;
+}
+footer a:hover { color: var(--gold-light); }
+
+/* Rune divider */
+.divider {
+  text-align: center;
+  color: rgba(168, 85, 247, 0.45);
+  letter-spacing: 8px;
+  font-size: 14px;
+  padding: 32px 0;
+  user-select: none;
+}
+
+/* Sound button */
+.sound-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  background: rgba(5, 3, 15, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--gold);
+  font-size: 22px;
+  z-index: 60;
+  transition: all 0.35s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  line-height: 1;
+}
+.sound-btn:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 26px rgba(212, 160, 23, 0.45);
+  transform: scale(1.05);
+}
+.sound-btn.on {
+  border-color: var(--gold);
+  box-shadow: 0 0 22px rgba(212, 160, 23, 0.4);
+}
+
+/* Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .two-col, .two-col.reverse { grid-template-columns: 1fr; gap: 48px; }
+  .how-grid, .reviews-grid { grid-template-columns: 1fr; }
+  .moon { width: 100px; height: 100px; top: 90px; right: 24px; }
+}
+
+@media (max-width: 720px) {
+  .container { padding: 0 20px; }
+  .nav-links { gap: 12px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .logo { font-size: 14px; letter-spacing: 0.22em; }
+  .nav-cta { padding: 9px 16px; font-size: 11px; }
+  .hero { padding: 120px 20px 80px; min-height: auto; }
+  .floating-rune { font-size: 56px; }
+  section { padding: 70px 0; }
+  .section-head { margin-bottom: 48px; }
+  .gen-badges { justify-content: center; }
+  .trust-stats { gap: 32px; }
+  .stat-num { font-size: 32px; }
+  .portrait-emoji { font-size: 100px; }
+  .avatar-circle { width: 240px; height: 240px; }
+  .moon { width: 70px; height: 70px; top: 80px; right: 16px; }
+  .scroll-indicator { display: none; }
+  blockquote { font-size: 19px; padding-left: 22px; }
+  .ticker-track { font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .cta-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .hero h1 { font-size: 30px; }
+  .container { padding: 0 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
 </head>
 <body>
 
 <canvas id="stars" aria-hidden="true"></canvas>
-<div class="grain" aria-hidden="true"></div>
-<div class="cursor-glow" aria-hidden="true"></div>
+<canvas id="particles" aria-hidden="true"></canvas>
+<div class="moon" aria-hidden="true"></div>
+<div class="fog fog-1" aria-hidden="true"></div>
+<div class="fog fog-2" aria-hidden="true"></div>
 
-<header class="site-header">
-  <div class="container nav">
-    <a href="#" class="brand">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="18" height="18">
-          <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="0.6"/>
-          <path d="M12 2 L14 12 L12 22 L10 12 Z M2 12 L12 10 L22 12 L12 14 Z" fill="currentColor" opacity="0.85"/>
-        </svg>
-      </span>
-      <span class="brand-name">Magic</span>
-    </a>
-    <nav class="nav-links">
-      <a href="#about">О проекте</a>
-      <a href="#capabilities">Возможности</a>
-      <a href="#draw">Карта</a>
-      <a href="#ritual">Ритуал</a>
-      <a class="nav-cta" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
-        <span>В Telegram</span>
-        <span class="nav-cta-arrow">→</span>
-      </a>
-    </nav>
+<nav class="site-nav">
+  <div class="container nav-inner">
+    <a href="#" class="logo">☽ ЕФРОСИНЬЯ</a>
+    <div class="nav-links">
+      <a href="#story">Історія</a>
+      <a href="#services">Послуги</a>
+      <a href="#reviews">Відгуки</a>
+      <a class="nav-cta" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">Записатися →</a>
+    </div>
   </div>
-</header>
+</nav>
 
 <main>
   <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <p class="eyebrow"><span class="eyebrow-line"></span>Личный проводник · Telegram</p>
-        <h1 class="hero-title">
-          <span class="line">Магия</span>
-          <span class="line"><em>для тех,</em></span>
-          <span class="line">кто умеет</span>
-          <span class="line gold"><em>слушать.</em></span>
-        </h1>
-        <p class="hero-sub">
-          Не игра и не развлечение. Бот, с которым можно говорить честно:
-          задать вопрос, попросить расклад, получить ответ — без шаблонов,
-          без сахара, без лишних слов.
-        </p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
-            <span>Открыть в Telegram</span>
-            <span class="btn-arrow" aria-hidden="true">→</span>
-          </a>
-          <a class="btn btn-ghost" href="#draw">
-            <span>Вытянуть карту</span>
-          </a>
-        </div>
-        <div class="hero-meta">
-          <span class="meta-dot"></span>
-          <span>@magicforeveryone_bot</span>
-        </div>
-      </div>
-
-      <div class="hero-art" aria-hidden="true">
-        <div class="sigil">
-          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#d8bf85" stop-opacity="0.6"/>
-                <stop offset="60%" stop-color="#c9a96a" stop-opacity="0.05"/>
-                <stop offset="100%" stop-color="#c9a96a" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-
-            <circle cx="200" cy="200" r="180" fill="url(#centerGlow)"/>
-
-            <!-- Outer rotating ring with text-like ticks -->
-            <g class="ring ring-outer">
-              <circle cx="200" cy="200" r="180" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.4"/>
-              <circle cx="200" cy="200" r="172" fill="none" stroke="#c9a96a" stroke-width="0.3" stroke-opacity="0.25"/>
-              <g stroke="#c9a96a" stroke-width="0.6" stroke-opacity="0.6">
-                <!-- 24 ticks -->
-                <line x1="200" y1="20" x2="200" y2="32"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(15 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(30 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(45 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(60 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(75 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(90 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(105 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(120 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(135 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(150 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(165 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(180 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(195 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(210 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(225 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(240 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(255 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(270 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(285 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(300 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(315 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(330 200 200)"/>
-                <line x1="200" y1="20" x2="200" y2="32" transform="rotate(345 200 200)"/>
-              </g>
-              <!-- Glyphs on outer ring -->
-              <g fill="#c9a96a" fill-opacity="0.7" font-family="Cormorant Garamond, serif" font-size="14" text-anchor="middle">
-                <text x="200" y="14">✦</text>
-                <text x="386" y="204" transform="rotate(90 386 200)">☉</text>
-                <text x="200" y="394">✦</text>
-                <text x="14" y="204" transform="rotate(-90 14 200)">☽</text>
-              </g>
-            </g>
-
-            <!-- Middle counter-rotating ring -->
-            <g class="ring ring-middle">
-              <circle cx="200" cy="200" r="140" fill="none" stroke="#c9a96a" stroke-width="0.4" stroke-opacity="0.35"/>
-              <circle cx="200" cy="200" r="135" fill="none" stroke="#c9a96a" stroke-width="0.3" stroke-opacity="0.2" stroke-dasharray="2 4"/>
-            </g>
-
-            <!-- Hexagram (two triangles) -->
-            <g class="hex" stroke="#c9a96a" stroke-width="0.7" fill="none" stroke-opacity="0.55">
-              <polygon points="200,90 295,250 105,250"/>
-              <polygon points="200,310 105,150 295,150"/>
-            </g>
-
-            <!-- Inner ring -->
-            <g class="ring ring-inner">
-              <circle cx="200" cy="200" r="80" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.5"/>
-              <circle cx="200" cy="200" r="72" fill="none" stroke="#c9a96a" stroke-width="0.3" stroke-opacity="0.3"/>
-            </g>
-
-            <!-- Center sigil -->
-            <g class="core">
-              <circle cx="200" cy="200" r="6" fill="#d8bf85"/>
-              <circle cx="200" cy="200" r="14" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.7"/>
-              <circle cx="200" cy="200" r="22" fill="none" stroke="#c9a96a" stroke-width="0.3" stroke-opacity="0.4"/>
-            </g>
-
-            <!-- Cross lines -->
-            <g stroke="#c9a96a" stroke-width="0.4" stroke-opacity="0.25">
-              <line x1="200" y1="20" x2="200" y2="380"/>
-              <line x1="20" y1="200" x2="380" y2="200"/>
-            </g>
-          </svg>
-        </div>
-        <div class="orbit orbit-1"></div>
-        <div class="orbit orbit-2"></div>
-      </div>
+    <span class="badge">✦ Потомствена відунья · 5 поколінь ✦</span>
+    <div class="floating-rune" aria-hidden="true">🔮</div>
+    <h1>Єфросинья.<br/>Вона не ворожить — <em>вона знає.</em></h1>
+    <p class="hero-sub">
+      Дев'яносто років. П'ятдесят років практики. Десятки тисяч людей, що повернулися додому інакшими.
+      Тепер до неї можна звернутися просто з телефону.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
+        Записатися до Єфросиньї <span class="btn-arrow">→</span>
+      </a>
+      <a class="btn btn-ghost" href="#story">Дізнатись більше</a>
     </div>
-
-    <div class="scroll-hint">
-      <span>Scroll</span>
-      <span class="scroll-line"></span>
-    </div>
+    <div class="scroll-indicator" aria-hidden="true">Вниз</div>
   </section>
 
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Тишина · Внимание · Намерение</span>
-      <span class="dot">✦</span>
-      <span>Слушать · Спрашивать · Понимать</span>
-      <span class="dot">✦</span>
-      <span>Луна · Солнце · Земля · Воздух · Вода · Огонь</span>
-      <span class="dot">✦</span>
-      <span>Тишина · Внимание · Намерение</span>
-      <span class="dot">✦</span>
-      <span>Слушать · Спрашивать · Понимать</span>
-      <span class="dot">✦</span>
-      <span>Луна · Солнце · Земля · Воздух · Вода · Огонь</span>
-      <span class="dot">✦</span>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Приворот</span><span class="sep">✦</span>
+      <span>Зняття порчі</span><span class="sep">✦</span>
+      <span>Гадання на картах</span><span class="sep">✦</span>
+      <span>Чистка роду</span><span class="sep">✦</span>
+      <span>Ритуал удачі</span><span class="sep">✦</span>
+      <span>Повернення коханого</span><span class="sep">✦</span>
+      <span>Захист від зурочення</span><span class="sep">✦</span>
+      <span>Грошовий обряд</span><span class="sep">✦</span>
+      <span>Приворот</span><span class="sep">✦</span>
+      <span>Зняття порчі</span><span class="sep">✦</span>
+      <span>Гадання на картах</span><span class="sep">✦</span>
+      <span>Чистка роду</span><span class="sep">✦</span>
+      <span>Ритуал удачі</span><span class="sep">✦</span>
+      <span>Повернення коханого</span><span class="sep">✦</span>
+      <span>Захист від зурочення</span><span class="sep">✦</span>
+      <span>Грошовий обряд</span><span class="sep">✦</span>
     </div>
   </div>
 
-  <section id="about" class="section">
-    <div class="container two-col">
-      <div class="col-sticky">
-        <p class="eyebrow"><span class="eyebrow-line"></span>О проекте</p>
-        <h2>Серьёзный<br/>разговор<br/><em>в формате,</em><br/>который<br/>вы знаете.</h2>
+  <section class="queue">
+    <span class="queue-num" id="queueNum">347</span>
+    <div class="queue-label">
+      <span class="live-dot" aria-hidden="true"></span>
+      людей зараз в онлайн-черзі
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true">✦ ☽ ✦ ☉ ✦ ⚸ ✦</div>
+
+  <section id="story">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow">Історія</p>
+        <h2>Бабуся, до якої <em>їхав цілий світ.</em></h2>
       </div>
-      <div class="prose">
-        <p class="lead">
-          Мы не обещаем чудес и не торгуем верой.
-        </p>
-        <p>
-          Magic — аккуратный инструмент самонаблюдения: символы, архетипы и выверенные тексты,
-          собранные так, чтобы помогать думать, а не уводить от мысли.
-        </p>
-        <p>
-          Всё работает прямо в Telegram. Без приложений, без регистраций,
-          без подписок «по умолчанию». Открываете чат — и начинаете.
-        </p>
-        <div class="quote">
-          <span class="quote-mark">“</span>
-          <p>Магия — это внимание, доведённое до того предела, где оно становится ответом.</p>
+      <div class="two-col">
+        <div class="portrait reveal">
+          <div class="portrait-emoji" aria-hidden="true">👵🏻</div>
+          <div class="portrait-caption">Єфросинья</div>
+          <div class="portrait-sub">90 років · покрита таємницею</div>
+        </div>
+        <div class="story-text reveal">
+          <p class="lead">У глибині українського села, де дороги ще пам'ятають кінські копита, живе Єфросинья.</p>
+          <p>
+            Дев'яносто років. З них п'ятдесят — у служінні людям. До неї приїздили з усього світу:
+            простий чабан і київський чиновник, жінка з-за океану і німкеня, що шукала корінь свого роду.
+            Хто з горем, хто з порчею, хто за відповіддю, якої не дають ні церква, ні лікар.
+          </p>
+          <p>
+            Бабуся ніколи не рекламувала себе. Її ім'я передавалось пошепки, від двору до двору,
+            від країни до країни. І це шептання не стихало півстоліття.
+          </p>
+          <blockquote>
+            «Я не ворожу, дитино. Я просто бачу те, що вже є.»
+            <cite>— Єфросинья</cite>
+          </blockquote>
+          <p>
+            Тепер ноги вже не носять до неї так, як колись. Тому її онука — біла відьма й
+            IT-спеціалістка — створила бот у Telegram, аби дар бабусі дістав кожного,
+            хто потребує.
+          </p>
+          <div class="gen-badges">
+            <span class="gen-badge">👵 Єфросинья</span>
+            <span class="gen-badge">🌿 5 поколінь</span>
+            <span class="gen-badge">🌙 50 років практики</span>
+            <span class="gen-badge">🌍 Весь світ</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="capabilities" class="section section-dark">
+  <div class="divider" aria-hidden="true">✦ ☽ ✦ ☉ ✦ ⚸ ✦</div>
+
+  <section id="granddaughter">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow"><span class="eyebrow-line"></span>Возможности</p>
-        <h2>Четыре практики.<br/><em>Один бот.</em></h2>
+        <p class="section-eyebrow">Онука</p>
+        <h2>Міст між селом <em>і світом.</em></h2>
       </div>
-      <div class="grid">
-        <article class="card" data-num="01">
-          <span class="card-glyph" aria-hidden="true">☉</span>
-          <h3>Вопрос дня</h3>
-          <p>Один точный вопрос каждое утро. Не предсказание — повод остановиться и подумать о главном.</p>
-          <span class="card-corner" aria-hidden="true"></span>
-        </article>
-        <article class="card" data-num="02">
-          <span class="card-glyph" aria-hidden="true">☽</span>
-          <h3>Расклад карт</h3>
-          <p>Классические и авторские расклады с подробной интерпретацией. Без двусмысленностей и общих фраз.</p>
-          <span class="card-corner" aria-hidden="true"></span>
-        </article>
-        <article class="card" data-num="03">
-          <span class="card-glyph" aria-hidden="true">✦</span>
-          <h3>Свободный диалог</h3>
-          <p>Можно просто написать, что на душе. Бот ответит спокойно, по существу и без морали.</p>
-          <span class="card-corner" aria-hidden="true"></span>
-        </article>
-        <article class="card" data-num="04">
-          <span class="card-glyph" aria-hidden="true">⚸</span>
-          <h3>Ритуалы и практики</h3>
-          <p>Короткие техники внимания, дыхания и письма. Проверенные, без эзотерического шума.</p>
-          <span class="card-corner" aria-hidden="true"></span>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="draw" class="section section-draw">
-    <div class="container">
-      <div class="section-head center">
-        <p class="eyebrow"><span class="eyebrow-line"></span>Малая практика</p>
-        <h2>Вытяните карту.</h2>
-        <p class="section-sub">Выберите одну из трёх. Прочтите. Так это работает в боте — только подробнее.</p>
-      </div>
-
-      <div class="cards-deck" id="cardsDeck">
-        <button class="tcard" data-card="0" aria-label="Вытянуть карту 1">
-          <div class="tcard-inner">
-            <div class="tcard-back">
-              <div class="tcard-pattern">
-                <span>✦</span>
-                <span class="tcard-circle"></span>
-              </div>
-            </div>
-            <div class="tcard-front">
-              <span class="tcard-num">I</span>
-              <span class="tcard-glyph">☉</span>
-              <h4 class="tcard-title">Источник</h4>
-              <p class="tcard-text">То, к чему вы привыкли возвращаться, — пришло за вами. Не отворачивайтесь от ясности.</p>
-            </div>
-          </div>
-        </button>
-        <button class="tcard" data-card="1" aria-label="Вытянуть карту 2">
-          <div class="tcard-inner">
-            <div class="tcard-back">
-              <div class="tcard-pattern">
-                <span>✦</span>
-                <span class="tcard-circle"></span>
-              </div>
-            </div>
-            <div class="tcard-front">
-              <span class="tcard-num">II</span>
-              <span class="tcard-glyph">☽</span>
-              <h4 class="tcard-title">Зеркало</h4>
-              <p class="tcard-text">Ответ уже у вас — и вы его узнаёте. Сегодня важнее не искать новое, а услышать то, что есть.</p>
-            </div>
-          </div>
-        </button>
-        <button class="tcard" data-card="2" aria-label="Вытянуть карту 3">
-          <div class="tcard-inner">
-            <div class="tcard-back">
-              <div class="tcard-pattern">
-                <span>✦</span>
-                <span class="tcard-circle"></span>
-              </div>
-            </div>
-            <div class="tcard-front">
-              <span class="tcard-num">III</span>
-              <span class="tcard-glyph">⚸</span>
-              <h4 class="tcard-title">Порог</h4>
-              <p class="tcard-text">Шаг, который вы откладывали, перестал быть выбором. Он стал направлением.</p>
-            </div>
-          </div>
-        </button>
-      </div>
-
-      <p class="draw-note" id="drawNote">Нажмите на карту.</p>
-    </div>
-  </section>
-
-  <section id="ritual" class="section">
-    <div class="container">
-      <div class="section-head">
-        <p class="eyebrow"><span class="eyebrow-line"></span>Как это устроено</p>
-        <h2>Три шага.<br/><em>Без лишнего.</em></h2>
-      </div>
-      <ol class="steps">
-        <li>
-          <span class="step-num">01</span>
-          <div class="step-line"></div>
-          <h3>Откройте бот</h3>
-          <p>Нажмите кнопку и перейдите в Telegram. Никаких форм, паролей и ожидания.</p>
-        </li>
-        <li>
-          <span class="step-num">02</span>
-          <div class="step-line"></div>
-          <h3>Задайте вопрос</h3>
-          <p>Сформулируйте то, что важно прямо сейчас. Чем точнее вопрос — тем точнее ответ.</p>
-        </li>
-        <li>
-          <span class="step-num">03</span>
-          <h3>Прочтите ответ</h3>
-          <p>Расклад, текст или короткая практика. Возвращайтесь к нему столько раз, сколько нужно.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="section final-cta">
-    <div class="container">
-      <div class="final-card">
-        <div class="final-decoration" aria-hidden="true">
-          <svg viewBox="0 0 200 200" width="120" height="120">
-            <circle cx="100" cy="100" r="80" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.4"/>
-            <circle cx="100" cy="100" r="60" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.3"/>
-            <polygon points="100,40 160,140 40,140" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.5"/>
-            <polygon points="100,160 40,60 160,60" fill="none" stroke="#c9a96a" stroke-width="0.5" stroke-opacity="0.5"/>
-            <circle cx="100" cy="100" r="3" fill="#d8bf85"/>
-          </svg>
+      <div class="two-col reverse">
+        <div class="story-text reveal">
+          <p class="lead">Я зростала біля бабусі. Бачила, як вона лікує словом.</p>
+          <p>
+            Як читає по очах. Як знімає те, з чим інші не справляються роками.
+            Сьогодні я працюю з технологіями — з кодом, серверами, штучним інтелектом —
+            але серце моє лишилось у тій хаті, де пахне травами й воском.
+          </p>
+          <p>
+            Я належу до п'ятого покоління жінок-провидиць у нашому роду. І коли я зрозуміла,
+            що бабусі стає важче приймати людей особисто, я зробила єдине, що могла:
+            побудувала місток. Цифровий, але справжній.
+          </p>
+          <p>
+            Своє обличчя я не показую. Сила любить тишу. А бот — це лише провідник
+            між вами і Єфросиньєю.
+          </p>
         </div>
-        <p class="eyebrow"><span class="eyebrow-line"></span>Готовы начать?</p>
-        <h2>Один чат.<br/>Один вопрос.<br/><em>Один честный ответ.</em></h2>
-        <a class="btn btn-primary btn-large" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
-          <span>Открыть Magic в Telegram</span>
-          <span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-        <p class="final-handle">t.me/magicforeveryone_bot</p>
+        <div class="avatar-wrap reveal">
+          <div class="avatar-circle">
+            <div class="avatar-emoji" aria-hidden="true">🌙</div>
+            <div class="avatar-label">обличчя приховано<br/>· біла відьма ·</div>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true">✦ ☽ ✦ ☉ ✦ ⚸ ✦</div>
+
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow">Послуги</p>
+        <h2>Що робить <em>Єфросинья.</em></h2>
+        <p>Кожен ритуал — особистий. Ціни вказані як стартові: бабуся бачить ситуацію наперед і завжди говорить чесно.</p>
+      </div>
+      <div class="services-grid">
+        <article class="service-card reveal">
+          <span class="service-icon" aria-hidden="true">💔</span>
+          <h3>Повернення коханого</h3>
+          <div class="service-price">від $49</div>
+        </article>
+        <article class="service-card reveal">
+          <span class="service-icon" aria-hidden="true">🃏</span>
+          <h3>Гадання на Таро</h3>
+          <div class="service-price">від $19</div>
+        </article>
+        <article class="service-card reveal">
+          <span class="service-icon" aria-hidden="true">🧿</span>
+          <h3>Зняття порчі та зурочення</h3>
+          <div class="service-price">від $79</div>
+        </article>
+        <article class="service-card reveal">
+          <span class="service-icon" aria-hidden="true">💰</span>
+          <h3>Грошовий ритуал</h3>
+          <div class="service-price">від $39</div>
+        </article>
+        <article class="service-card reveal">
+          <span class="service-icon" aria-hidden="true">🌿</span>
+          <h3>Чистка роду</h3>
+          <div class="service-price">від $129</div>
+        </article>
+        <article class="service-card reveal">
+          <span class="service-icon" aria-hidden="true">⭐</span>
+          <h3>VIP-сеанс з Єфросинею</h3>
+          <div class="service-price">$299</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true">✦ ☽ ✦ ☉ ✦ ⚸ ✦</div>
+
+  <section id="how">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow">Як це працює</p>
+        <h2>Три кроки <em>до Єфросиньї.</em></h2>
+      </div>
+      <div class="how-grid">
+        <div class="how-step reveal">
+          <div class="how-num">01</div>
+          <span class="how-icon" aria-hidden="true">📱</span>
+          <h3>Відкрити бота</h3>
+          <p>Жодних реєстрацій. Лише один натиск — і ви всередині.</p>
+        </div>
+        <div class="how-step reveal">
+          <div class="how-num">02</div>
+          <span class="how-icon" aria-hidden="true">✍️</span>
+          <h3>Поставити питання</h3>
+          <p>Опишіть ситуацію своїми словами. Чим щиріше — тим точніша відповідь.</p>
+        </div>
+        <div class="how-step reveal">
+          <div class="how-num">03</div>
+          <span class="how-icon" aria-hidden="true">🔮</span>
+          <h3>Отримати сеанс</h3>
+          <p>Розклад, ритуал або порада — все так, як це робить Єфросинья особисто.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true">✦ ☽ ✦ ☉ ✦ ⚸ ✦</div>
+
+  <section id="reviews">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-eyebrow">Відгуки</p>
+        <h2>Те, що кажуть <em>люди.</em></h2>
+      </div>
+      <div class="reviews-grid">
+        <article class="review-card reveal">
+          <div class="review-stars" aria-label="5 з 5">★ ★ ★ ★ ★</div>
+          <p class="review-quote">«Звернулась після року невдач. Уже через тиждень почала помічати зміни — впевненість повернулась, а потім і робота, про яку мріяла. Дякую Єфросиньї за її силу й тепло.»</p>
+          <div class="review-author">Анастасія М.</div>
+          <div class="review-meta">Київ · березень 2026</div>
+        </article>
+        <article class="review-card reveal">
+          <div class="review-stars" aria-label="5 з 5">★ ★ ★ ★ ★</div>
+          <p class="review-quote">«Скептиком був до останнього. Але бабуся розповіла те, про що жодна жива душа не знала. Кохана повернулась через місяць — рівно так, як вона й сказала. Низький уклін.»</p>
+          <div class="review-author">Дмитро К.</div>
+          <div class="review-meta">Харків · лютий 2026</div>
+        </article>
+        <article class="review-card reveal">
+          <div class="review-stars" aria-label="5 з 5">★ ★ ★ ★ ★</div>
+          <p class="review-quote">«П'ять років не могла знайти своє. Один сеанс розкладу через бот — і все стало на свої місця. Тут не гра. Тут справжнє. Я це відчула з першого слова.»</p>
+          <div class="review-author">Ірина В.</div>
+          <div class="review-meta">Мінськ · квітень 2026</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true">✦ ☽ ✦ ☉ ✦ ⚸ ✦</div>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>Єфросинья чекає <em>на ваше питання.</em></h2>
+      <p class="hero-sub">Поки ви читаєте ці рядки — у черзі вже сотні людей. Не відкладайте те, що давно просить відповіді.</p>
+      <div class="trust-stats">
+        <div class="stat">
+          <div class="stat-num">90</div>
+          <div class="stat-label">років мудрості</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">років практики</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5</div>
+          <div class="stat-label">поколінь</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">12 000+</div>
+          <div class="stat-label">людей</div>
+        </div>
+      </div>
+      <a class="btn btn-primary" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
+        Відкрити бота в Telegram <span class="btn-arrow">→</span>
+      </a>
     </div>
   </section>
 </main>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <span class="brand-mark" aria-hidden="true">✦</span>
-      <span>Magic</span>
-    </div>
-    <p class="footer-note">© <span id="year"></span> Magic. Сделано с уважением к тишине.</p>
+<footer>
+  <div class="container">
+    © 2026 Єфросинья · усі права збережено
+    <a href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">@magicforeveryone_bot</a>
   </div>
 </footer>
 
-<script src="script.js"></script>
+<button class="sound-btn" id="soundBtn" aria-label="Увімкнути звук" title="Увімкнути містичний звук">🔇</button>
+
+<script>
+// ===== Stars =====
+(function () {
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let w, h, stars;
+
+  function resize() {
+    w = canvas.width = innerWidth * dpr;
+    h = canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    init();
+  }
+  function init() {
+    stars = [];
+    for (let i = 0; i < 180; i++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: (Math.random() * 1.2 + 0.3) * dpr,
+        a: Math.random() * 0.7 + 0.2,
+        s: Math.random() * 0.012 + 0.003,
+        p: Math.random() * Math.PI * 2,
+      });
+    }
+  }
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h);
+    for (const s of stars) {
+      const tw = (Math.sin(t * s.s + s.p) + 1) / 2;
+      const a = s.a * (0.3 + tw * 0.7);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(216, 180, 254, ' + a + ')';
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(draw);
+})();
+
+// ===== Purple particles =====
+(function () {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let w, h, parts;
+
+  function resize() {
+    w = canvas.width = innerWidth * dpr;
+    h = canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    init();
+  }
+  function init() {
+    parts = [];
+    for (let i = 0; i < 55; i++) {
+      parts.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: (Math.random() * 2 + 1) * dpr,
+        vx: (Math.random() - 0.5) * 0.18 * dpr,
+        vy: -(Math.random() * 0.22 + 0.06) * dpr,
+        a: Math.random() * 0.35 + 0.1,
+      });
+    }
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of parts) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.y < -20) { p.y = h + 20; p.x = Math.random() * w; }
+      if (p.x < -20) p.x = w + 20;
+      if (p.x > w + 20) p.x = -20;
+
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+      grad.addColorStop(0, 'rgba(168, 85, 247, ' + p.a + ')');
+      grad.addColorStop(1, 'rgba(168, 85, 247, 0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(draw);
+})();
+
+// ===== Live queue counter =====
+(function () {
+  const el = document.getElementById('queueNum');
+  if (!el) return;
+  let n = 347;
+  const fmt = (v) => v.toLocaleString('uk-UA');
+  setInterval(() => {
+    const delta = Math.round((Math.random() - 0.45) * 14);
+    n += delta;
+    if (n < 280) n = 280 + Math.round(Math.random() * 12);
+    if (n > 420) n = 420 - Math.round(Math.random() * 12);
+    el.style.opacity = '0.4';
+    setTimeout(() => {
+      el.textContent = fmt(n);
+      el.style.opacity = '1';
+    }, 220);
+  }, 4000);
+})();
+
+// ===== Scroll reveal =====
+(function () {
+  const targets = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  targets.forEach((el) => io.observe(el));
+})();
+
+// ===== Mystical drone =====
+(function () {
+  const btn = document.getElementById('soundBtn');
+  if (!btn) return;
+
+  let actx = null;
+  let master = null;
+  let oscs = [];
+  let lfos = [];
+  let on = false;
+
+  const VOICES = [
+    { f: 82,  type: 'sine',     gain: 0.10 },
+    { f: 110, type: 'sine',     gain: 0.09 },
+    { f: 165, type: 'triangle', gain: 0.05 },
+    { f: 220, type: 'sine',     gain: 0.04 },
+    { f: 55,  type: 'triangle', gain: 0.08 },
+    { f: 330, type: 'sine',     gain: 0.025 },
+  ];
+
+  function start() {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    master = actx.createGain();
+    master.gain.value = 0;
+
+    // Soft lowpass for warmth
+    const filter = actx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 1200;
+    filter.Q.value = 0.6;
+
+    master.connect(filter).connect(actx.destination);
+
+    oscs = []; lfos = [];
+    VOICES.forEach((v, i) => {
+      const osc = actx.createOscillator();
+      osc.type = v.type;
+      osc.frequency.value = v.f;
+
+      const lfo = actx.createOscillator();
+      lfo.type = 'sine';
+      lfo.frequency.value = 0.12 + Math.random() * 0.35;
+      const lfoGain = actx.createGain();
+      lfoGain.gain.value = 1.2 + Math.random() * 1.6;
+      lfo.connect(lfoGain).connect(osc.frequency);
+
+      const g = actx.createGain();
+      g.gain.value = v.gain;
+      osc.connect(g).connect(master);
+
+      osc.start();
+      lfo.start();
+      oscs.push(osc);
+      lfos.push(lfo);
+    });
+
+    master.gain.linearRampToValueAtTime(0.55, actx.currentTime + 2.2);
+
+    on = true;
+    btn.textContent = '🔊';
+    btn.classList.add('on');
+    btn.setAttribute('aria-label', 'Вимкнути звук');
+  }
+
+  function stop() {
+    if (!actx) return;
+    const t = actx.currentTime;
+    master.gain.cancelScheduledValues(t);
+    master.gain.setValueAtTime(master.gain.value, t);
+    master.gain.linearRampToValueAtTime(0, t + 1.4);
+    const localCtx = actx;
+    const localOscs = oscs.slice();
+    const localLfos = lfos.slice();
+    setTimeout(() => {
+      localOscs.forEach((o) => { try { o.stop(); } catch(e){} });
+      localLfos.forEach((l) => { try { l.stop(); } catch(e){} });
+      try { localCtx.close(); } catch(e){}
+    }, 1500);
+    actx = null;
+    on = false;
+    btn.textContent = '🔇';
+    btn.classList.remove('on');
+    btn.setAttribute('aria-label', 'Увімкнути звук');
+  }
+
+  btn.addEventListener('click', () => {
+    if (!on) start();
+    else stop();
+  });
+})();
+</script>
+
 </body>
 </html>
