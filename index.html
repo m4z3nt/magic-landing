@@ -235,7 +235,35 @@ nav.site-nav {
   text-align: center;
   padding: 140px 24px 100px;
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
+#bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 3, 15, 0.65);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.hero .scroll-indicator { z-index: 2; }
 .badge {
   display: inline-block;
   padding: 9px 22px;
@@ -952,18 +980,24 @@ footer a:hover { color: var(--gold-light); }
 
 <main>
   <section class="hero">
-    <span class="badge">✦ Потомствена відунья · 5 поколінь ✦</span>
-    <div class="floating-rune" aria-hidden="true">🔮</div>
-    <h1>Єфросинья.<br/>Вона не ворожить — <em>вона знає.</em></h1>
-    <p class="hero-sub">
-      Дев'яносто років. П'ятдесят років практики. Десятки тисяч людей, що повернулися додому інакшими.
-      Тепер до неї можна звернутися просто з телефону.
-    </p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
-        Записатися до Єфросиньї <span class="btn-arrow">→</span>
-      </a>
-      <a class="btn btn-ghost" href="#story">Дізнатись більше</a>
+    <video id="bg-video" autoplay muted loop playsinline preload="auto" poster="">
+      <source src="./14528940_3840_2160_60fps.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-content">
+      <span class="badge">✦ Потомствена відунья · 5 поколінь ✦</span>
+      <div class="floating-rune" aria-hidden="true">🔮</div>
+      <h1>Єфросинья.<br/>Вона не ворожить — <em>вона знає.</em></h1>
+      <p class="hero-sub">
+        Дев'яносто років. П'ятдесят років практики. Десятки тисяч людей, що повернулися додому інакшими.
+        Тепер до неї можна звернутися просто з телефону.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
+          Записатися до Єфросиньї <span class="btn-arrow">→</span>
+        </a>
+        <a class="btn btn-ghost" href="#story">Дізнатись більше</a>
+      </div>
     </div>
     <div class="scroll-indicator" aria-hidden="true">Вниз</div>
   </section>
@@ -1222,6 +1256,7 @@ footer a:hover { color: var(--gold-light); }
   </div>
 </footer>
 
+<audio id="ambient" loop preload="auto" src="./redproductions.mp3"></audio>
 <button class="sound-btn" id="soundBtn" aria-label="Увімкнути звук" title="Увімкнути містичний звук">🔇</button>
 
 <script>
@@ -1353,94 +1388,26 @@ footer a:hover { color: var(--gold-light); }
   targets.forEach((el) => io.observe(el));
 })();
 
-// ===== Mystical drone =====
+// ===== Ambient audio =====
 (function () {
   const btn = document.getElementById('soundBtn');
-  if (!btn) return;
+  const audio = document.getElementById('ambient');
+  if (!btn || !audio) return;
 
-  let actx = null;
-  let master = null;
-  let oscs = [];
-  let lfos = [];
-  let on = false;
-
-  const VOICES = [
-    { f: 82,  type: 'sine',     gain: 0.10 },
-    { f: 110, type: 'sine',     gain: 0.09 },
-    { f: 165, type: 'triangle', gain: 0.05 },
-    { f: 220, type: 'sine',     gain: 0.04 },
-    { f: 55,  type: 'triangle', gain: 0.08 },
-    { f: 330, type: 'sine',     gain: 0.025 },
-  ];
-
-  function start() {
-    actx = new (window.AudioContext || window.webkitAudioContext)();
-    master = actx.createGain();
-    master.gain.value = 0;
-
-    // Soft lowpass for warmth
-    const filter = actx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 1200;
-    filter.Q.value = 0.6;
-
-    master.connect(filter).connect(actx.destination);
-
-    oscs = []; lfos = [];
-    VOICES.forEach((v, i) => {
-      const osc = actx.createOscillator();
-      osc.type = v.type;
-      osc.frequency.value = v.f;
-
-      const lfo = actx.createOscillator();
-      lfo.type = 'sine';
-      lfo.frequency.value = 0.12 + Math.random() * 0.35;
-      const lfoGain = actx.createGain();
-      lfoGain.gain.value = 1.2 + Math.random() * 1.6;
-      lfo.connect(lfoGain).connect(osc.frequency);
-
-      const g = actx.createGain();
-      g.gain.value = v.gain;
-      osc.connect(g).connect(master);
-
-      osc.start();
-      lfo.start();
-      oscs.push(osc);
-      lfos.push(lfo);
-    });
-
-    master.gain.linearRampToValueAtTime(0.55, actx.currentTime + 2.2);
-
-    on = true;
-    btn.textContent = '🔊';
-    btn.classList.add('on');
-    btn.setAttribute('aria-label', 'Вимкнути звук');
-  }
-
-  function stop() {
-    if (!actx) return;
-    const t = actx.currentTime;
-    master.gain.cancelScheduledValues(t);
-    master.gain.setValueAtTime(master.gain.value, t);
-    master.gain.linearRampToValueAtTime(0, t + 1.4);
-    const localCtx = actx;
-    const localOscs = oscs.slice();
-    const localLfos = lfos.slice();
-    setTimeout(() => {
-      localOscs.forEach((o) => { try { o.stop(); } catch(e){} });
-      localLfos.forEach((l) => { try { l.stop(); } catch(e){} });
-      try { localCtx.close(); } catch(e){}
-    }, 1500);
-    actx = null;
-    on = false;
-    btn.textContent = '🔇';
-    btn.classList.remove('on');
-    btn.setAttribute('aria-label', 'Увімкнути звук');
-  }
+  audio.volume = 0.55;
 
   btn.addEventListener('click', () => {
-    if (!on) start();
-    else stop();
+    if (audio.paused) {
+      audio.play().catch(() => {});
+      btn.textContent = '🔊';
+      btn.classList.add('on');
+      btn.setAttribute('aria-label', 'Вимкнути звук');
+    } else {
+      audio.pause();
+      btn.textContent = '🔇';
+      btn.classList.remove('on');
+      btn.setAttribute('aria-label', 'Увімкнути звук');
+    }
   });
 })();
 </script>
