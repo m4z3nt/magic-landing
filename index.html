@@ -225,6 +225,40 @@ nav.site-nav {
   box-shadow: 0 0 32px rgba(168, 85, 247, 0.55);
 }
 
+/* Lang switcher */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 4px;
+}
+.lang-btn {
+  background: transparent;
+  border: 1px solid rgba(216, 180, 254, 0.22);
+  color: var(--muted);
+  font-family: var(--display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 7px 10px;
+  border-radius: 2px;
+  cursor: inherit;
+  transition: all 0.3s;
+  line-height: 1;
+  min-width: 36px;
+  text-align: center;
+}
+.lang-btn:hover {
+  color: var(--lavender);
+  border-color: rgba(216, 180, 254, 0.45);
+}
+.lang-btn.active {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: rgba(212, 160, 23, 0.08);
+  text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+}
+
 /* Hero */
 .hero {
   min-height: 100vh;
@@ -538,26 +572,6 @@ h2 em {
   letter-spacing: 8px;
   font-size: 12px;
   opacity: 0.7;
-}
-.portrait-emoji {
-  font-size: 130px;
-  margin-bottom: 28px;
-  filter: grayscale(0.35) drop-shadow(0 0 32px rgba(168, 85, 247, 0.45));
-  opacity: 0.88;
-}
-.portrait-caption {
-  font-family: var(--display);
-  color: var(--gold);
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.portrait-sub {
-  color: var(--muted);
-  font-style: italic;
-  font-size: 14px;
-  letter-spacing: 0.04em;
 }
 
 /* Story text */
@@ -928,6 +942,7 @@ footer a:hover { color: var(--gold-light); }
   .nav-links a:not(.nav-cta) { display: none; }
   .logo { font-size: 14px; letter-spacing: 0.22em; }
   .nav-cta { padding: 9px 16px; font-size: 11px; }
+  .lang-btn { padding: 6px 8px; font-size: 10px; min-width: 30px; }
   .hero { padding: 120px 20px 80px; min-height: auto; }
   .floating-rune { font-size: 56px; }
   section { padding: 70px 0; }
@@ -935,7 +950,6 @@ footer a:hover { color: var(--gold-light); }
   .gen-badges { justify-content: center; }
   .trust-stats { gap: 32px; }
   .stat-num { font-size: 32px; }
-  .portrait-emoji { font-size: 100px; }
   .avatar-circle { width: 240px; height: 240px; }
   .moon { width: 70px; height: 70px; top: 80px; right: 16px; }
   .scroll-indicator { display: none; }
@@ -970,10 +984,14 @@ footer a:hover { color: var(--gold-light); }
   <div class="container nav-inner">
     <a href="#" class="logo">☽ ЕФРОСИНЬЯ</a>
     <div class="nav-links">
-      <a href="#story">История</a>
-      <a href="#services">Услуги</a>
-      <a href="#reviews">Отзывы</a>
-      <a class="nav-cta" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">Записаться →</a>
+      <a href="#story" data-ru="История" data-uk="Історія">История</a>
+      <a href="#services" data-ru="Услуги" data-uk="Послуги">Услуги</a>
+      <a href="#reviews" data-ru="Отзывы" data-uk="Відгуки">Отзывы</a>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button class="lang-btn" type="button" data-lang="uk" aria-label="Українська">УК</button>
+        <button class="lang-btn active" type="button" data-lang="ru" aria-label="Русский">RU</button>
+      </div>
+      <a class="nav-cta" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener" data-ru="Записаться →" data-uk="Записатися →">Записаться →</a>
     </div>
   </div>
 </nav>
@@ -985,41 +1003,43 @@ footer a:hover { color: var(--gold-light); }
     </video>
     <div class="hero-overlay" aria-hidden="true"></div>
     <div class="hero-content">
-      <span class="badge">✦ Потомственная ведунья · 5 поколений ✦</span>
+      <span class="badge" data-ru="✦ Потомственная ведунья · 5 поколений ✦" data-uk="✦ Потомствена відунья · 5 поколінь ✦">✦ Потомственная ведунья · 5 поколений ✦</span>
       <div class="floating-rune" aria-hidden="true">🔮</div>
-      <h1>Ефросинья.<br/>Она не гадает — <em>она знает.</em></h1>
-      <p class="hero-sub">
+      <h1 data-ru-html="Ефросинья.<br/>Она не гадает — <em>она знает.</em>" data-uk-html="Єфросинья.<br/>Вона не ворожить — <em>вона знає.</em>">Ефросинья.<br/>Она не гадает — <em>она знает.</em></h1>
+      <p class="hero-sub"
+         data-ru="Девяносто лет. Пятьдесят лет практики. Десятки тысяч людей, которые вернулись домой другими. Теперь к ней можно обратиться прямо с телефона."
+         data-uk="Дев'яносто років. П'ятдесят років практики. Десятки тисяч людей, що повернулися додому інакшими. Тепер до неї можна звернутися просто з телефону.">
         Девяносто лет. Пятьдесят лет практики. Десятки тысяч людей, которые вернулись домой другими.
         Теперь к ней можно обратиться прямо с телефона.
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
-          Записаться к Ефросинье <span class="btn-arrow">→</span>
+          <span data-ru="Записаться к Ефросинье" data-uk="Записатися до Єфросиньї">Записаться к Ефросинье</span> <span class="btn-arrow">→</span>
         </a>
-        <a class="btn btn-ghost" href="#story">Узнать больше</a>
+        <a class="btn btn-ghost" href="#story" data-ru="Узнать историю" data-uk="Дізнатися історію">Узнать историю</a>
       </div>
     </div>
-    <div class="scroll-indicator" aria-hidden="true">Вниз</div>
+    <div class="scroll-indicator" aria-hidden="true" data-ru="Вниз" data-uk="Вниз">Вниз</div>
   </section>
 
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
-      <span>Приворот</span><span class="sep">✦</span>
-      <span>Снятие порчи</span><span class="sep">✦</span>
-      <span>Гадание на картах</span><span class="sep">✦</span>
-      <span>Чистка рода</span><span class="sep">✦</span>
-      <span>Ритуал удачи</span><span class="sep">✦</span>
-      <span>Возвращение любимого</span><span class="sep">✦</span>
-      <span>Защита от сглаза</span><span class="sep">✦</span>
-      <span>Денежный обряд</span><span class="sep">✦</span>
-      <span>Приворот</span><span class="sep">✦</span>
-      <span>Снятие порчи</span><span class="sep">✦</span>
-      <span>Гадание на картах</span><span class="sep">✦</span>
-      <span>Чистка рода</span><span class="sep">✦</span>
-      <span>Ритуал удачи</span><span class="sep">✦</span>
-      <span>Возвращение любимого</span><span class="sep">✦</span>
-      <span>Защита от сглаза</span><span class="sep">✦</span>
-      <span>Денежный обряд</span><span class="sep">✦</span>
+      <span data-ru="Приворот" data-uk="Приворот">Приворот</span><span class="sep">✦</span>
+      <span data-ru="Снятие порчи" data-uk="Зняття порчі">Снятие порчи</span><span class="sep">✦</span>
+      <span data-ru="Гадание на картах" data-uk="Гадання на картах">Гадание на картах</span><span class="sep">✦</span>
+      <span data-ru="Чистка рода" data-uk="Чистка роду">Чистка рода</span><span class="sep">✦</span>
+      <span data-ru="Ритуал удачи" data-uk="Ритуал удачі">Ритуал удачи</span><span class="sep">✦</span>
+      <span data-ru="Возвращение любимого" data-uk="Повернення коханого">Возвращение любимого</span><span class="sep">✦</span>
+      <span data-ru="Защита от сглаза" data-uk="Захист від зурочення">Защита от сглаза</span><span class="sep">✦</span>
+      <span data-ru="Денежный обряд" data-uk="Грошовий обряд">Денежный обряд</span><span class="sep">✦</span>
+      <span data-ru="Приворот" data-uk="Приворот">Приворот</span><span class="sep">✦</span>
+      <span data-ru="Снятие порчи" data-uk="Зняття порчі">Снятие порчи</span><span class="sep">✦</span>
+      <span data-ru="Гадание на картах" data-uk="Гадання на картах">Гадание на картах</span><span class="sep">✦</span>
+      <span data-ru="Чистка рода" data-uk="Чистка роду">Чистка рода</span><span class="sep">✦</span>
+      <span data-ru="Ритуал удачи" data-uk="Ритуал удачі">Ритуал удачи</span><span class="sep">✦</span>
+      <span data-ru="Возвращение любимого" data-uk="Повернення коханого">Возвращение любимого</span><span class="sep">✦</span>
+      <span data-ru="Защита от сглаза" data-uk="Захист від зурочення">Защита от сглаза</span><span class="sep">✦</span>
+      <span data-ru="Денежный обряд" data-uk="Грошовий обряд">Денежный обряд</span><span class="sep">✦</span>
     </div>
   </div>
 
@@ -1027,7 +1047,7 @@ footer a:hover { color: var(--gold-light); }
     <span class="queue-num" id="queueNum">347</span>
     <div class="queue-label">
       <span class="live-dot" aria-hidden="true"></span>
-      человек сейчас в онлайн-очереди
+      <span data-ru="человек сейчас в онлайн-очереди" data-uk="людей зараз в онлайн-черзі">человек сейчас в онлайн-очереди</span>
     </div>
   </section>
 
@@ -1036,38 +1056,44 @@ footer a:hover { color: var(--gold-light); }
   <section id="story">
     <div class="container">
       <div class="section-head">
-        <p class="section-eyebrow">История</p>
-        <h2>Бабушка, к которой <em>ехал весь мир.</em></h2>
+        <p class="section-eyebrow" data-ru="История" data-uk="Історія">История</p>
+        <h2 data-ru-html="Бабушка, к которой <em>ехал весь мир.</em>" data-uk-html="Бабуся, до якої <em>їхав цілий світ.</em>">Бабушка, к которой <em>ехал весь мир.</em></h2>
       </div>
       <div class="two-col">
         <div class="portrait reveal">
-          <img src="./ChatGPT Image May 6, 2026, 12_09_13 PM.png" alt="Ефросинья" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+          <img src="./ChatGPT Image May 6, 2026, 12_09_13 PM.png" alt="Ефросинья" data-ru-alt="Ефросинья" data-uk-alt="Єфросинья" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
         </div>
         <div class="story-text reveal">
-          <p class="lead">В глубине украинского села, где дороги ещё помнят конские копыта, живёт Ефросинья.</p>
-          <p>
+          <p class="lead"
+             data-ru="В глубине украинского села, где дороги ещё помнят конские копыта, живёт Ефросинья."
+             data-uk="У глибині українського села, де дороги ще пам'ятають кінські копита, живе Єфросинья.">В глубине украинского села, где дороги ещё помнят конские копыта, живёт Ефросинья.</p>
+          <p data-ru="Девяносто лет. Из них пятьдесят — в служении людям. К ней приезжали со всего света: простой пастух и киевский чиновник, женщина из-за океана и немка, искавшая корни своего рода. Кто с горем, кто с порчей, кто за ответом, которого не дают ни церковь, ни врач."
+             data-uk="Дев'яносто років. З них п'ятдесят — у служінні людям. До неї приїздили з усього світу: простий чабан і київський чиновник, жінка з-за океану і німкеня, що шукала корінь свого роду. Хто з горем, хто з порчею, хто за відповіддю, якої не дають ні церква, ні лікар.">
             Девяносто лет. Из них пятьдесят — в служении людям. К ней приезжали со всего света:
             простой пастух и киевский чиновник, женщина из-за океана и немка, искавшая корни своего рода.
             Кто с горем, кто с порчей, кто за ответом, которого не дают ни церковь, ни врач.
           </p>
-          <p>
+          <p data-ru="Бабушка никогда не рекламировала себя. Её имя передавалось шёпотом, от двора к двору, от страны к стране. И этот шёпот не стихал полвека."
+             data-uk="Бабуся ніколи не рекламувала себе. Її ім'я передавалось пошепки, від двору до двору, від країни до країни. І це шептання не стихало півстоліття.">
             Бабушка никогда не рекламировала себя. Её имя передавалось шёпотом, от двора к двору,
             от страны к стране. И этот шёпот не стихал полвека.
           </p>
-          <blockquote>
+          <blockquote data-ru-html="«Порча не кричит. Она шепчет. Тихо забирает удачу, здоровье, любовь — и ты даже не знаешь почему всё идёт не так.»<cite>— Ефросинья</cite>"
+                      data-uk-html="«Порча не кричить. Вона шепоче. Тихо забирає удачу, здоров'я, любов — і ти навіть не знаєш чому все йде не так.»<cite>— Єфросинья</cite>">
             «Порча не кричит. Она шепчет. Тихо забирает удачу, здоровье, любовь — и ты даже не знаешь почему всё идёт не так.»
             <cite>— Ефросинья</cite>
           </blockquote>
-          <p>
+          <p data-ru="Теперь ноги уже не носят к ней, как прежде. Поэтому её внучка — белая ведьма и IT-специалистка — создала бот в Telegram, чтобы дар бабушки дошёл до каждого, кто в нём нуждается."
+             data-uk="Тепер ноги вже не носять до неї так, як колись. Тому її онука — біла відьма й IT-спеціалістка — створила бот у Telegram, аби дар бабусі дістав кожного, хто потребує.">
             Теперь ноги уже не носят к ней, как прежде. Поэтому её внучка — белая ведьма и
             IT-специалистка — создала бот в Telegram, чтобы дар бабушки дошёл до каждого,
             кто в нём нуждается.
           </p>
           <div class="gen-badges">
-            <span class="gen-badge">👵 Ефросинья</span>
-            <span class="gen-badge">🌿 5 поколений</span>
-            <span class="gen-badge">🌙 50 лет практики</span>
-            <span class="gen-badge">🌍 Весь мир</span>
+            <span class="gen-badge" data-ru="👵 Ефросинья" data-uk="👵 Єфросинья">👵 Ефросинья</span>
+            <span class="gen-badge" data-ru="🌿 5 поколений" data-uk="🌿 5 поколінь">🌿 5 поколений</span>
+            <span class="gen-badge" data-ru="🌙 50 лет практики" data-uk="🌙 50 років практики">🌙 50 лет практики</span>
+            <span class="gen-badge" data-ru="🌍 Весь мир" data-uk="🌍 Весь світ">🌍 Весь мир</span>
           </div>
         </div>
       </div>
@@ -1079,23 +1105,28 @@ footer a:hover { color: var(--gold-light); }
   <section id="granddaughter">
     <div class="container">
       <div class="section-head">
-        <p class="section-eyebrow">Внучка</p>
-        <h2>Мост между селом <em>и миром.</em></h2>
+        <p class="section-eyebrow" data-ru="Внучка" data-uk="Онука">Внучка</p>
+        <h2 data-ru-html="Мост между селом <em>и миром.</em>" data-uk-html="Міст між селом <em>і світом.</em>">Мост между селом <em>и миром.</em></h2>
       </div>
       <div class="two-col reverse">
         <div class="story-text reveal">
-          <p class="lead">Я росла рядом с бабушкой. Видела, как она лечит словом.</p>
-          <p>
+          <p class="lead"
+             data-ru="Я росла рядом с бабушкой. Видела, как она лечит словом."
+             data-uk="Я зростала біля бабусі. Бачила, як вона лікує словом.">Я росла рядом с бабушкой. Видела, как она лечит словом.</p>
+          <p data-ru="Как читает по глазам. Как снимает то, с чем другие не справляются годами. Сегодня я работаю с технологиями — с кодом, серверами, искусственным интеллектом — но сердце моё осталось в той хате, где пахнет травами и воском."
+             data-uk="Як читає по очах. Як знімає те, з чим інші не справляються роками. Сьогодні я працюю з технологіями — з кодом, серверами, штучним інтелектом — але серце моє лишилось у тій хаті, де пахне травами й воском.">
             Как читает по глазам. Как снимает то, с чем другие не справляются годами.
             Сегодня я работаю с технологиями — с кодом, серверами, искусственным интеллектом —
             но сердце моё осталось в той хате, где пахнет травами и воском.
           </p>
-          <p>
+          <p data-ru="Я принадлежу к пятому поколению женщин-провидиц в нашем роду. И когда я поняла, что бабушке становится тяжелее принимать людей лично, я сделала единственное, что могла: построила мостик. Цифровой, но настоящий."
+             data-uk="Я належу до п'ятого покоління жінок-провидиць у нашому роду. І коли я зрозуміла, що бабусі стає важче приймати людей особисто, я зробила єдине, що могла: побудувала місток. Цифровий, але справжній.">
             Я принадлежу к пятому поколению женщин-провидиц в нашем роду. И когда я поняла,
             что бабушке становится тяжелее принимать людей лично, я сделала единственное, что могла:
             построила мостик. Цифровой, но настоящий.
           </p>
-          <p>
+          <p data-ru="Своё лицо я не показываю. Сила любит тишину. А бот — это лишь проводник между вами и Ефросиньей."
+             data-uk="Своє обличчя я не показую. Сила любить тишу. А бот — це лише провідник між вами і Єфросиньєю.">
             Своё лицо я не показываю. Сила любит тишину. А бот — это лишь проводник
             между вами и Ефросиньей.
           </p>
@@ -1103,7 +1134,7 @@ footer a:hover { color: var(--gold-light); }
         <div class="avatar-wrap reveal">
           <div class="avatar-circle">
             <div class="avatar-emoji" aria-hidden="true">🌙</div>
-            <div class="avatar-label">лицо скрыто<br/>· белая ведьма ·</div>
+            <div class="avatar-label" data-ru-html="лицо скрыто<br/>· белая ведьма ·" data-uk-html="обличчя приховано<br/>· біла відьма ·">лицо скрыто<br/>· белая ведьма ·</div>
           </div>
         </div>
       </div>
@@ -1115,40 +1146,41 @@ footer a:hover { color: var(--gold-light); }
   <section id="services">
     <div class="container">
       <div class="section-head">
-        <p class="section-eyebrow">Услуги</p>
-        <h2>Что делает <em>Ефросинья.</em></h2>
-        <p>Каждый ритуал — личный. Цены указаны как стартовые: бабушка видит ситуацию наперёд и всегда говорит честно.</p>
+        <p class="section-eyebrow" data-ru="Услуги" data-uk="Послуги">Услуги</p>
+        <h2 data-ru-html="Что делает <em>Ефросинья.</em>" data-uk-html="Що робить <em>Єфросинья.</em>">Что делает <em>Ефросинья.</em></h2>
+        <p data-ru="Каждый ритуал — личный. Цены указаны как стартовые: бабушка видит ситуацию наперёд и всегда говорит честно."
+           data-uk="Кожен ритуал — особистий. Ціни вказані як стартові: бабуся бачить ситуацію наперед і завжди говорить чесно.">Каждый ритуал — личный. Цены указаны как стартовые: бабушка видит ситуацию наперёд и всегда говорит честно.</p>
       </div>
       <div class="services-grid">
         <article class="service-card reveal">
           <span class="service-icon" aria-hidden="true">💔</span>
-          <h3>Возвращение любимого</h3>
-          <div class="service-price">от $49</div>
+          <h3 data-ru="Возвращение любимого" data-uk="Повернення коханого">Возвращение любимого</h3>
+          <div class="service-price" data-ru="от $49" data-uk="від $49">от $49</div>
         </article>
         <article class="service-card reveal">
           <span class="service-icon" aria-hidden="true">🃏</span>
-          <h3>Гадание на Таро</h3>
-          <div class="service-price">от $19</div>
+          <h3 data-ru="Гадание на Таро" data-uk="Гадання на Таро">Гадание на Таро</h3>
+          <div class="service-price" data-ru="от $19" data-uk="від $19">от $19</div>
         </article>
         <article class="service-card reveal">
           <span class="service-icon" aria-hidden="true">🧿</span>
-          <h3>Снятие порчи и сглаза</h3>
-          <div class="service-price">от $79</div>
+          <h3 data-ru="Снятие порчи и сглаза" data-uk="Зняття порчі та зурочення">Снятие порчи и сглаза</h3>
+          <div class="service-price" data-ru="от $79" data-uk="від $79">от $79</div>
         </article>
         <article class="service-card reveal">
           <span class="service-icon" aria-hidden="true">💰</span>
-          <h3>Денежный ритуал</h3>
-          <div class="service-price">от $39</div>
+          <h3 data-ru="Денежный ритуал" data-uk="Грошовий ритуал">Денежный ритуал</h3>
+          <div class="service-price" data-ru="от $39" data-uk="від $39">от $39</div>
         </article>
         <article class="service-card reveal">
           <span class="service-icon" aria-hidden="true">🌿</span>
-          <h3>Чистка рода</h3>
-          <div class="service-price">от $129</div>
+          <h3 data-ru="Чистка рода" data-uk="Чистка роду">Чистка рода</h3>
+          <div class="service-price" data-ru="от $129" data-uk="від $129">от $129</div>
         </article>
         <article class="service-card reveal">
           <span class="service-icon" aria-hidden="true">⭐</span>
-          <h3>VIP-сеанс с Ефросиньей</h3>
-          <div class="service-price">$299</div>
+          <h3 data-ru="VIP-сеанс с Ефросиньей" data-uk="VIP-сеанс з Єфросинею">VIP-сеанс с Ефросиньей</h3>
+          <div class="service-price" data-ru="$299" data-uk="$299">$299</div>
         </article>
       </div>
     </div>
@@ -1159,27 +1191,27 @@ footer a:hover { color: var(--gold-light); }
   <section id="how">
     <div class="container">
       <div class="section-head">
-        <p class="section-eyebrow">Как это работает</p>
-        <h2>Три шага <em>до Ефросиньи.</em></h2>
+        <p class="section-eyebrow" data-ru="Как это работает" data-uk="Як це працює">Как это работает</p>
+        <h2 data-ru-html="Три шага <em>до Ефросиньи.</em>" data-uk-html="Три кроки <em>до Єфросиньї.</em>">Три шага <em>до Ефросиньи.</em></h2>
       </div>
       <div class="how-grid">
         <div class="how-step reveal">
           <div class="how-num">01</div>
           <span class="how-icon" aria-hidden="true">📱</span>
-          <h3>Открыть бот</h3>
-          <p>Никаких регистраций. Один клик — и вы внутри.</p>
+          <h3 data-ru="Открыть бот" data-uk="Відкрити бота">Открыть бот</h3>
+          <p data-ru="Никаких регистраций. Один клик — и вы внутри." data-uk="Жодних реєстрацій. Лише один натиск — і ви всередині.">Никаких регистраций. Один клик — и вы внутри.</p>
         </div>
         <div class="how-step reveal">
           <div class="how-num">02</div>
           <span class="how-icon" aria-hidden="true">✍️</span>
-          <h3>Задать вопрос</h3>
-          <p>Опишите ситуацию своими словами. Чем искреннее — тем точнее ответ.</p>
+          <h3 data-ru="Задать вопрос" data-uk="Поставити питання">Задать вопрос</h3>
+          <p data-ru="Опишите ситуацию своими словами. Чем искреннее — тем точнее ответ." data-uk="Опишіть ситуацію своїми словами. Чим щиріше — тим точніша відповідь.">Опишите ситуацию своими словами. Чем искреннее — тем точнее ответ.</p>
         </div>
         <div class="how-step reveal">
           <div class="how-num">03</div>
           <span class="how-icon" aria-hidden="true">🔮</span>
-          <h3>Получить сеанс</h3>
-          <p>Расклад, ритуал или совет — всё так, как это делает Ефросинья лично.</p>
+          <h3 data-ru="Получить сеанс" data-uk="Отримати сеанс">Получить сеанс</h3>
+          <p data-ru="Расклад, ритуал или совет — всё так, как это делает Ефросинья лично." data-uk="Розклад, ритуал або порада — все так, як це робить Єфросинья особисто.">Расклад, ритуал или совет — всё так, как это делает Ефросинья лично.</p>
         </div>
       </div>
     </div>
@@ -1190,27 +1222,30 @@ footer a:hover { color: var(--gold-light); }
   <section id="reviews">
     <div class="container">
       <div class="section-head">
-        <p class="section-eyebrow">Отзывы</p>
-        <h2>То, что говорят <em>люди.</em></h2>
+        <p class="section-eyebrow" data-ru="Отзывы" data-uk="Відгуки">Отзывы</p>
+        <h2 data-ru-html="То, что говорят <em>люди.</em>" data-uk-html="Те, що кажуть <em>люди.</em>">То, что говорят <em>люди.</em></h2>
       </div>
       <div class="reviews-grid">
         <article class="review-card reveal">
-          <div class="review-stars" aria-label="5 из 5">★ ★ ★ ★ ★</div>
-          <p class="review-quote">«Обратилась после года неудач. Уже через неделю начала замечать перемены — уверенность вернулась, а потом и работа, о которой мечтала. Спасибо Ефросинье за её силу и тепло.»</p>
-          <div class="review-author">Анастасия М.</div>
-          <div class="review-meta">Киев · март 2026</div>
+          <div class="review-stars" aria-label="5 из 5" data-ru-aria-label="5 из 5" data-uk-aria-label="5 з 5">★ ★ ★ ★ ★</div>
+          <p class="review-quote" data-ru="«Обратилась после года неудач. Уже через неделю начала замечать перемены — уверенность вернулась, а потом и работа, о которой мечтала. Спасибо Ефросинье за её силу и тепло.»"
+                                 data-uk="«Звернулась після року невдач. Уже через тиждень почала помічати зміни — впевненість повернулась, а потім і робота, про яку мріяла. Дякую Єфросиньї за її силу й тепло.»">«Обратилась после года неудач. Уже через неделю начала замечать перемены — уверенность вернулась, а потом и работа, о которой мечтала. Спасибо Ефросинье за её силу и тепло.»</p>
+          <div class="review-author" data-ru="Анастасия М." data-uk="Анастасія М.">Анастасия М.</div>
+          <div class="review-meta" data-ru="Киев · март 2026" data-uk="Київ · березень 2026">Киев · март 2026</div>
         </article>
         <article class="review-card reveal">
-          <div class="review-stars" aria-label="5 из 5">★ ★ ★ ★ ★</div>
-          <p class="review-quote">«Скептиком был до последнего. Но бабушка рассказала то, о чём ни одна живая душа не знала. Любимая вернулась через месяц — ровно так, как она и сказала. Низкий поклон.»</p>
-          <div class="review-author">Дмитрий К.</div>
-          <div class="review-meta">Харьков · февраль 2026</div>
+          <div class="review-stars" aria-label="5 из 5" data-ru-aria-label="5 из 5" data-uk-aria-label="5 з 5">★ ★ ★ ★ ★</div>
+          <p class="review-quote" data-ru="«Скептиком был до последнего. Но бабушка рассказала то, о чём ни одна живая душа не знала. Любимая вернулась через месяц — ровно так, как она и сказала. Низкий поклон.»"
+                                 data-uk="«Скептиком був до останнього. Але бабуся розповіла те, про що жодна жива душа не знала. Кохана повернулась через місяць — рівно так, як вона й сказала. Низький уклін.»">«Скептиком был до последнего. Но бабушка рассказала то, о чём ни одна живая душа не знала. Любимая вернулась через месяц — ровно так, как она и сказала. Низкий поклон.»</p>
+          <div class="review-author" data-ru="Дмитрий К." data-uk="Дмитро К.">Дмитрий К.</div>
+          <div class="review-meta" data-ru="Харьков · февраль 2026" data-uk="Харків · лютий 2026">Харьков · февраль 2026</div>
         </article>
         <article class="review-card reveal">
-          <div class="review-stars" aria-label="5 из 5">★ ★ ★ ★ ★</div>
-          <p class="review-quote">«Пять лет не могла найти своё. Один сеанс расклада через бот — и всё встало на свои места. Здесь не игра. Здесь настоящее. Я это почувствовала с первого слова.»</p>
-          <div class="review-author">Ирина В.</div>
-          <div class="review-meta">Минск · апрель 2026</div>
+          <div class="review-stars" aria-label="5 из 5" data-ru-aria-label="5 из 5" data-uk-aria-label="5 з 5">★ ★ ★ ★ ★</div>
+          <p class="review-quote" data-ru="«Пять лет не могла найти своё. Один сеанс расклада через бот — и всё встало на свои места. Здесь не игра. Здесь настоящее. Я это почувствовала с первого слова.»"
+                                 data-uk="«П'ять років не могла знайти своє. Один сеанс розкладу через бот — і все стало на свої місця. Тут не гра. Тут справжнє. Я це відчула з першого слова.»">«Пять лет не могла найти своё. Один сеанс расклада через бот — и всё встало на свои места. Здесь не игра. Здесь настоящее. Я это почувствовала с первого слова.»</p>
+          <div class="review-author" data-ru="Ирина В." data-uk="Ірина В.">Ирина В.</div>
+          <div class="review-meta" data-ru="Минск · апрель 2026" data-uk="Мінськ · квітень 2026">Минск · апрель 2026</div>
         </article>
       </div>
     </div>
@@ -1220,28 +1255,29 @@ footer a:hover { color: var(--gold-light); }
 
   <section class="cta-section">
     <div class="container">
-      <h2>Ефросинья ждёт <em>ваш вопрос.</em></h2>
-      <p class="hero-sub">Пока вы читаете эти строки — в очереди уже сотни людей. Не откладывайте то, что давно просит ответа.</p>
+      <h2 data-ru-html="Ефросинья ждёт <em>ваш вопрос.</em>" data-uk-html="Єфросинья чекає <em>на ваше питання.</em>">Ефросинья ждёт <em>ваш вопрос.</em></h2>
+      <p class="hero-sub" data-ru="Пока вы читаете эти строки — в очереди уже сотни людей. Не откладывайте то, что давно просит ответа."
+                         data-uk="Поки ви читаєте ці рядки — у черзі вже сотні людей. Не відкладайте те, що давно просить відповіді.">Пока вы читаете эти строки — в очереди уже сотни людей. Не откладывайте то, что давно просит ответа.</p>
       <div class="trust-stats">
         <div class="stat">
           <div class="stat-num">90</div>
-          <div class="stat-label">лет мудрости</div>
+          <div class="stat-label" data-ru="лет мудрости" data-uk="років мудрості">лет мудрости</div>
         </div>
         <div class="stat">
           <div class="stat-num">50+</div>
-          <div class="stat-label">лет практики</div>
+          <div class="stat-label" data-ru="лет практики" data-uk="років практики">лет практики</div>
         </div>
         <div class="stat">
           <div class="stat-num">5</div>
-          <div class="stat-label">поколений</div>
+          <div class="stat-label" data-ru="поколений" data-uk="поколінь">поколений</div>
         </div>
         <div class="stat">
           <div class="stat-num">12 000+</div>
-          <div class="stat-label">человек</div>
+          <div class="stat-label" data-ru="человек" data-uk="людей">человек</div>
         </div>
       </div>
       <a class="btn btn-primary" href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">
-        Открыть бот в Telegram <span class="btn-arrow">→</span>
+        <span data-ru="Открыть бот в Telegram" data-uk="Відкрити бота в Telegram">Открыть бот в Telegram</span> <span class="btn-arrow">→</span>
       </a>
     </div>
   </section>
@@ -1249,7 +1285,7 @@ footer a:hover { color: var(--gold-light); }
 
 <footer>
   <div class="container">
-    © 2026 Ефросинья · все права защищены
+    <span data-ru="© 2026 Ефросинья · все права защищены" data-uk="© 2026 Єфросинья · усі права збережено">© 2026 Ефросинья · все права защищены</span>
     <a href="https://t.me/magicforeveryone_bot" target="_blank" rel="noopener">@magicforeveryone_bot</a>
   </div>
 </footer>
@@ -1258,6 +1294,80 @@ footer a:hover { color: var(--gold-light); }
 <button class="sound-btn" id="soundBtn" aria-label="Включить звук" title="Включить мистический звук">🔇</button>
 
 <script>
+// ===== Language switcher =====
+(function () {
+  const KEY = 'efrosynia.lang';
+  const TITLES = {
+    ru: 'Ефросинья — потомственная ведунья · 5 поколений · бот в Telegram',
+    uk: 'Єфросинья — потомствена відунья · 5 поколінь · бот у Telegram'
+  };
+  const DESCS = {
+    ru: 'Ефросинья. 90 лет. 50 лет практики. 5 поколений женщин-провидиц. Теперь дар бабушки — в вашем Telegram.',
+    uk: 'Єфросинья. 90 років. 50 років практики. 5 поколінь жінок-провидиць. Тепер дар бабусі — у вашому Telegram.'
+  };
+  const SOUND_LABELS = {
+    ru: { off: 'Включить звук', on: 'Выключить звук', title: 'Включить мистический звук' },
+    uk: { off: 'Увімкнути звук', on: 'Вимкнути звук', title: 'Увімкнути містичний звук' }
+  };
+  const ATTRS = ['alt', 'aria-label', 'title'];
+
+  function detect() {
+    const stored = localStorage.getItem(KEY);
+    if (stored === 'uk' || stored === 'ru') return stored;
+    return (navigator.language || '').toLowerCase().indexOf('uk') === 0 ? 'uk' : 'ru';
+  }
+
+  function apply(lang) {
+    document.documentElement.lang = lang;
+    document.title = TITLES[lang];
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', DESCS[lang]);
+
+    document.querySelectorAll('[data-' + lang + ']').forEach(function (el) {
+      el.textContent = el.getAttribute('data-' + lang);
+    });
+    document.querySelectorAll('[data-' + lang + '-html]').forEach(function (el) {
+      el.innerHTML = el.getAttribute('data-' + lang + '-html');
+    });
+    ATTRS.forEach(function (attr) {
+      document.querySelectorAll('[data-' + lang + '-' + attr + ']').forEach(function (el) {
+        el.setAttribute(attr, el.getAttribute('data-' + lang + '-' + attr));
+      });
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+
+    const sb = document.getElementById('soundBtn');
+    if (sb) {
+      const labels = SOUND_LABELS[lang];
+      sb.setAttribute('aria-label', sb.classList.contains('on') ? labels.on : labels.off);
+      sb.setAttribute('title', labels.title);
+    }
+
+    window.__lang = lang;
+    document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: lang } }));
+  }
+
+  window.__lang = detect();
+  window.__SOUND_LABELS = SOUND_LABELS;
+  window.__applyLang = apply;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    apply(window.__lang);
+    document.querySelectorAll('.lang-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        const l = b.getAttribute('data-lang');
+        if (l !== window.__lang) {
+          try { localStorage.setItem(KEY, l); } catch (e) {}
+          apply(l);
+        }
+      });
+    });
+  });
+})();
+
 // ===== Stars =====
 (function () {
   const canvas = document.getElementById('stars');
@@ -1358,14 +1468,16 @@ footer a:hover { color: var(--gold-light); }
   const el = document.getElementById('queueNum');
   if (!el) return;
   let n = 347;
-  const fmt = (v) => v.toLocaleString('ru-RU');
-  setInterval(() => {
+  const fmt = function (v) {
+    return v.toLocaleString((window.__lang === 'uk') ? 'uk-UA' : 'ru-RU');
+  };
+  setInterval(function () {
     const delta = Math.round((Math.random() - 0.45) * 14);
     n += delta;
     if (n < 280) n = 280 + Math.round(Math.random() * 12);
     if (n > 420) n = 420 - Math.round(Math.random() * 12);
     el.style.opacity = '0.4';
-    setTimeout(() => {
+    setTimeout(function () {
       el.textContent = fmt(n);
       el.style.opacity = '1';
     }, 220);
@@ -1375,15 +1487,15 @@ footer a:hover { color: var(--gold-light); }
 // ===== Scroll reveal =====
 (function () {
   const targets = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
         io.unobserve(entry.target);
       }
     });
   }, { threshold: 0.12 });
-  targets.forEach((el) => io.observe(el));
+  targets.forEach(function (el) { io.observe(el); });
 })();
 
 // ===== Ambient audio =====
@@ -1394,17 +1506,24 @@ footer a:hover { color: var(--gold-light); }
 
   audio.volume = 0.55;
 
-  btn.addEventListener('click', () => {
+  function getLabels() {
+    const lang = window.__lang || 'ru';
+    return (window.__SOUND_LABELS && window.__SOUND_LABELS[lang]) || { off: '', on: '', title: '' };
+  }
+
+  btn.addEventListener('click', function () {
     if (audio.paused) {
-      audio.play().catch(() => {});
+      audio.play().catch(function () {});
       btn.textContent = '🔊';
       btn.classList.add('on');
-      btn.setAttribute('aria-label', 'Выключить звук');
+      const l = getLabels();
+      if (l.on) btn.setAttribute('aria-label', l.on);
     } else {
       audio.pause();
       btn.textContent = '🔇';
       btn.classList.remove('on');
-      btn.setAttribute('aria-label', 'Включить звук');
+      const l = getLabels();
+      if (l.off) btn.setAttribute('aria-label', l.off);
     }
   });
 })();
