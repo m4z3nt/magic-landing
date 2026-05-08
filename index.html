@@ -1529,5 +1529,72 @@ footer a:hover { color: var(--gold-light); }
 })();
 </script>
 
+<!--
+  =====================================================================
+  ANALYTICS & TRACKING — REPLACE PLACEHOLDER IDS BEFORE GOING LIVE
+  =====================================================================
+  1) Yandex.Metrica counter ID  → replace 00000000
+  2) Meta (Facebook) Pixel ID   → replace YOUR_META_PIXEL_ID
+  3) Google Analytics 4 tag ID  → replace G-XXXXXXXXXX
+  Until real IDs are pasted, requests go to non-existent counters and
+  silently fail (no errors). Manage centrally via GTM if preferred.
+  =====================================================================
+-->
+
+<!-- Yandex.Metrica counter (with Webvisor) -->
+<script type="text/javascript">
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+  ym(00000000, "init", {
+    clickmap: true,
+    trackLinks: true,
+    accurateTrackBounce: true,
+    webvisor: true
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/00000000" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrica counter -->
+
+<!-- Meta Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'YOUR_META_PIXEL_ID');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=YOUR_META_PIXEL_ID&ev=PageView&noscript=1" alt="" /></noscript>
+<!-- End Meta Pixel Code -->
+
+<!-- Google tag (gtag.js) — Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+</script>
+<!-- /Google tag -->
+
+<!-- Track Telegram CTA clicks across all counters -->
+<script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="t.me/magicforeveryone_bot"]');
+    if (!a) return;
+    try { if (window.ym) ym(00000000, 'reachGoal', 'tg_click'); } catch (_) {}
+    try { if (window.fbq) fbq('track', 'Lead'); } catch (_) {}
+    try { if (window.gtag) gtag('event', 'tg_click', { event_category: 'cta', event_label: a.textContent.trim() }); } catch (_) {}
+  });
+})();
+</script>
+
 </body>
 </html>
